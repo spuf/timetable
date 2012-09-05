@@ -3,8 +3,10 @@
 include_once 'config.php';
 include_once 'Classes/PHPExcel/IOFactory.php';
 
+$file = file_get_contents('./files/test.xls');
 
-$inputFileName = './files/test.xls';
+$inputFileName = tempnam(sys_get_temp_dir(), 'Timetable');
+file_put_contents($inputFileName, $file);
 
 $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
 
@@ -102,5 +104,7 @@ function arrayToCSS(&$array) {
 		$css .= "$key: $value;";
 	return $css;
 }
+
+unlink($inputFileName);
 
 print meminfo();
