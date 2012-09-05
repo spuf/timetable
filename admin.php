@@ -3,7 +3,7 @@
 include_once 'config.php';
 include_once 'Classes/PHPExcel/IOFactory.php';
 
-$inputFileName = 'http://timetable.spuf.ru/files/test.xls';
+$inputFileName = './files/test.xls';
 
 $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
 
