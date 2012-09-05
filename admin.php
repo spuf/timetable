@@ -3,10 +3,7 @@
 include_once 'config.php';
 include_once 'Classes/PHPExcel/IOFactory.php';
 
-$file = file_get_contents('./files/test.xls');
-
-$inputFileName = tempnam(sys_get_temp_dir(), 'Timetable');
-file_put_contents($inputFileName, $file);
+$inputFileName = 'http://timetable.spuf.ru/files/test.xls';
 
 $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
 
@@ -18,7 +15,7 @@ $objReader->setLoadAllSheets();
 /** @var PHPExcel $objPHPExcel */
 $objPHPExcel = $objReader->load($inputFileName);
 
-echo "File <b>".pathinfo($inputFileName,PATHINFO_BASENAME)."</b> is <b>$inputFileType</b> type,
+echo "File <b>".pathinfo($inputFileName, PATHINFO_BASENAME)."</b> is <b>$inputFileType</b> type,
 	contains <b>{$objPHPExcel->getSheetCount()}</b> worksheet".(($objPHPExcel->getSheetCount() == 1) ? '' : 's').":<br />";
 print "<pre>";
 print_r($objPHPExcel->getSheetNames());
@@ -104,7 +101,5 @@ function arrayToCSS(&$array) {
 		$css .= "$key: $value;";
 	return $css;
 }
-
-unlink($inputFileName);
 
 print meminfo();
