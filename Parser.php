@@ -37,7 +37,7 @@ class Parser
 	}
 
 	function LoadFromURL($url) {
-		$this->tempFile = './uploads/'.pathinfo($inputFileName, PATHINFO_BASENAME);
+		$this->tempFile = './uploads/'.pathinfo($url, PATHINFO_BASENAME);
 
 		$data = file_get_contents($url);
 		file_put_contents($this->tempFile, $data);
