@@ -37,7 +37,7 @@ class Parser
 	}
 
 	function LoadFromURL($url) {
-		$this->tempFile = tempnam(sys_get_temp_dir(), 'Timetable');
+		$this->tempFile = './uploads/'.pathinfo($inputFileName, PATHINFO_BASENAME);
 
 		$data = file_get_contents($url);
 		file_put_contents($this->tempFile, $data);
