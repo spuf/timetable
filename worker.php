@@ -5,10 +5,10 @@ require_once 'DB.php';
 
 function Check() {
 	$html = file_get_contents('http://www.hse.perm.ru/student/timetable/');
+	$info = round(strlen($html) / 1024, 1) . " kb, md5(".md5($html).")";
 
-	$info = '?';
 	if (strpos($html, 'Расписание занятий') !== false) {
-		$info = round(strlen($html) / 1024, 1) . " kb";
+		$info .= ', with timetable';
 	}
 
 	$text = 'Now is '.date('H:i:s').'. Memory used '.meminfo(false).'. Page size '.$info.'.';
