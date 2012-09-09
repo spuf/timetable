@@ -16,3 +16,10 @@ worker1:
   name: "checker"
   type: php
   exec: "php worker.php"
+  shared_writable_dirs:
+    - /uploads
+  php_date_timezone: "Asia/Yekaterinburg"
+  php_default_locale: "ru_RU"
+  php_extensions:
+    - pdo
+    - pdo_mysql
