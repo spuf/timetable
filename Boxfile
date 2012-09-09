@@ -11,5 +11,5 @@ db1:
   name: "timetable"
   type: mysql
 
-#worker1:
-#  exec: "worker.php"
+worker1:
+  exec: "worker.php"
