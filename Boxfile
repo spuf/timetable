@@ -14,4 +14,5 @@ db1:
 
 worker1:
   name: "checker"
-  exec: "worker.php"
+  type: php
+  exec: "php worker.php"
