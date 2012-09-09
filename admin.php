@@ -11,9 +11,7 @@ $parser->LoadFromURL($inputFileName);
 $data = $parser->ToTimetableArray();
 $parser->UnloadExcel();
 
-print "<pre>";
-print_r($data);
-print "</pre>";
+$parser->PrintTimetableArray($data);
 
 print "<hr>";
 

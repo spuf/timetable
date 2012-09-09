@@ -85,6 +85,38 @@ class Parser
 		}
 	}
 
+	function PrintTimetableArray(&$timetable) {
+		foreach ($timetable as $group => $days) {
+			print "<h3>$group</h3>";
+			print "<table border='1'>";
+			foreach ($days as $date => $day) {
+				if (is_array($day['pairs'])) {
+					$first = "<td rowspan=".count($day['pairs']).">$date<br>{$day['dow']}</td>";
+					foreach ($day['pairs'] as $number => $pair) {
+						print "<tr>";
+						if (!empty($first)) {
+							print $first;
+							$first = null;
+						}
+						print "<td>$number</td>";
+						if (empty($pair['style']))
+							$pair['style'] = '';
+						if (empty($pair['with']))
+							$with = '';
+						else {
+							$with = "<div>".implode($pair['with'])."</div>";
+						}
+						print "<td><div style='{$pair['style']}'>".nl2br($pair['title'])."</div>$with</td>";
+						print "</tr>";
+					}
+				} else {
+					print "<tr><td>$date<br>{$day['dow']}</td><td>&nbsp;</td></tr>";
+				}
+			}
+			print "</table>";
+		}
+	}
+
 	function ToTimetableArray() {
 		$timetable = array();
 		foreach ($this->objPHPExcel->getAllSheets() as $objSheet) {
