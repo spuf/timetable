@@ -1,4 +1,5 @@
 web1:
+  name: "site"
   shared_writable_dirs:
     - /uploads
   php_date_timezone: "Asia/Yekaterinburg"
@@ -12,4 +13,5 @@ db1:
   type: mysql
 
 worker1:
+  name: "checker"
   exec: "worker.php"
