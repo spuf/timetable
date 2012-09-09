@@ -98,7 +98,7 @@ class Parser
 							print $first;
 							$first = null;
 						}
-						print "<td>$number</td>";
+						print "<td>$number<br>{$pair['time']}</td>";
 						if (empty($pair['style']))
 							$pair['style'] = '';
 						if (empty($pair['with']))
