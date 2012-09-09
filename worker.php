@@ -1,18 +1,13 @@
 <?php
 
-require_once './DB.php';
+require_once 'config.php';
+require_once 'DB.php';
 
-while (false) {
+while (true) {
+
+	$text = 'Now is '.date('H:i:s').' memory '.meminfo(true);
+
+	DB::Query('INSERT INTO log(text) VALUES(:text)', array(':text' => $text), false);
 
 	sleep(60 * 15);
-}
-
-//DB::Query('INSERT INTO log(text) VALUES(:text)', array(':text' => 'insert test'), false);
-$data = DB::Query('SELECT * FROM log ORDER BY time DESC');
-print "<pre>";
-print_r($data);
-print "</pre>";
-
-function Check() {
-
 }
