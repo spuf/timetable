@@ -51,7 +51,7 @@ function Check() {
 	$data = json_encode(isset($result['Дневное отделение']) ? $result['Дневное отделение'] : $result, JSON_UNESCAPED_UNICODE);
 
 	$text = 'Now is '.date('H:i:s').'. Memory used '.meminfo(false).'. Page size '.$info.'. '.$data;
-	print "<p>$text</p>";
+	//print "<p>$text</p>";
 	DB::Query('INSERT INTO log(text) VALUES(:text)', array(':text' => $text), false);
 }
 
