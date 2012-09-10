@@ -48,7 +48,7 @@ function Check() {
 			}
 		}
 	}
-	$data = json_encode(isset($result['Дневное отделение']) ? $result['Дневное отделение'] : $result, JSON_UNESCAPED_UNICODE);
+	$data = var_export(isset($result['Дневное отделение']) ? $result['Дневное отделение'] : $result, true);
 
 	$text = 'Now is '.date('H:i:s').'. Memory used '.meminfo(false).'. Page size '.$info.'. '.$data;
 	//print "<p>$text</p>";
