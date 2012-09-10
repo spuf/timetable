@@ -7,6 +7,7 @@ web1:
   php_extensions:
     - pdo
     - pdo_mysql
+    - mbstring
 
 db1:
   name: "timetable"
@@ -23,3 +24,4 @@ worker1:
   php_extensions:
     - pdo
     - pdo_mysql
+    - mbstring

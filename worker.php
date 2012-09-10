@@ -20,11 +20,12 @@ function Check() {
 	$html = file_get_contents('http://www.hse.perm.ru/student/timetable/');
 	$info = round(strlen($html) / 1024, 1) . " kb";
 
+	$html = mb_convert_encoding($html, 'utf-8');
 	$result = array();
 	if (strpos($html, 'Расписание занятий') !== false) {
 		libxml_use_internal_errors(true);
 		libxml_disable_entity_loader(true);
-		$dom = new DOMDocument();
+		$dom = new DOMDocument('1.0', 'utf-8');
 		$dom->loadHTML($html);
 		libxml_clear_errors();
 		libxml_disable_entity_loader(false);
@@ -41,7 +42,7 @@ function Check() {
 				foreach ($xpath->query('li', $node) as $item) {
 					$result[$category][] = array(
 						'name' => nodeValue($xpath->query('a', $item)),
-						'date' => nodeValue($xpath->query('small', $item), '/Дата изменения:\s+(.+)\./ims'),
+						'date' => nodeValue($xpath->query('small', $item), '/Дата изменения:\s+(.+)\./imsu'),
 						'link' => nodeValue($xpath->query('a/@href', $item)),
 					);
 				}
