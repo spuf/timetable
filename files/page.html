@@ -1,0 +1,303 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="robots" content="index, follow" />
+<meta name="keywords" content="Высшее образование, курсы делового английского языка, BEC, FCE, курсы разговорного английского языка, Business English, английский язык, языковые школы, языковые курсы, тестирование онлайн, online test" />
+<meta name="description" content="Новости, объявления, публикации" />
+<link href="/bitrix/js/main/core/css/core.css?1347256059" type="text/css" rel="stylesheet" />
+<link href="/bitrix/templates/.default/components/bitrix/system.auth.form/top3/style.css?1274951243" type="text/css" rel="stylesheet" />
+<link href="/bitrix/templates/.default/components/bitrix/search.form/suggest1/style.css?1298294595" type="text/css" rel="stylesheet" />
+<link href="/bitrix/templates/.default/components/bitrix/search.suggest.input/.default/style.css?1275036684" type="text/css" rel="stylesheet" />
+<link href="/bitrix/templates/department_new/components/bitrix/breadcrumb/template1/style.css?1304660929" type="text/css" rel="stylesheet" />
+<link href="/bitrix/templates/.default/components/bitrix/menu/horizontal_multilevel3/style.css?1275287492" type="text/css" rel="stylesheet" />
+<link href="/bitrix/templates/department_new/styles.css?1334642187" type="text/css" rel="stylesheet" />
+<link href="/bitrix/templates/department_new/template_styles.css?1334642187" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="/bitrix/js/main/core/core.js?1347256063"></script>
+<script type="text/javascript">BX.message({'LANGUAGE_ID':'ru','FORMAT_DATE':'DD.MM.YYYY','FORMAT_DATETIME':'DD.MM.YYYY HH:MI:SS','COOKIE_PREFIX':'BITRIX_SM','USER_ID':'','SERVER_TIME':'1347282056','SERVER_TZ_OFFSET':'21600','USER_TZ_OFFSET':'0','bitrix_sessid':'f0c3ca995b64e812ad3643ac0bc793ca','SITE_ID':'s1','JS_CORE_LOADING':'Загрузка...','JS_CORE_WINDOW_CLOSE':'Закрыть','JS_CORE_WINDOW_EXPAND':'Развернуть','JS_CORE_WINDOW_NARROW':'Свернуть в окно','JS_CORE_WINDOW_SAVE':'Сохранить','JS_CORE_WINDOW_CANCEL':'Отменить','JS_CORE_H':'ч','JS_CORE_M':'м','JS_CORE_S':'с'})</script>
+<script type="text/javascript" src="/bitrix/js/main/core/core_ajax.js?1347256063"></script>
+<script type="text/javascript" src="/bitrix/js/main/session.js?1323336466"></script>
+<script type="text/javascript">
+bxSession.Expand(1440, 'f0c3ca995b64e812ad3643ac0bc793ca', false, '9c814c4e6ce8d2a83d13cd53bd37ef55');
+</script>
+<title>Расписание занятий</title>
+<script type="text/javascript" src="/bitrix/include/jquery.js"></script>
+<script type="text/javascript" src="/bitrix/include/jquery.pngfix.js"></script>
+<script type="text/javascript" src="/bitrix/templates/department_new/jquery.corner.js"></script>
+<script type="text/javascript" src="/js/timer.js"></script>
+<script type="text/javascript" src="/include/jquery.colorbox.js"></script>
+<link href="/include/colorbox.css" type="text/css" rel="stylesheet" media="all" />
+<script type=“text/javascript”> 
+    $(document).ready(function(){ 
+        $(document).pngFix();
+    }); 
+</script>
+</head>
+<body>
+<div id="panel"></div>
+<div id="wrapper">
+    <div class="auth" id="auth">
+       
+
+<div id="at_frm_bitrix">
+<form method="post" target="_top" action="/student/timetable/index.php?login=yes">
+			<input type="hidden" name="backurl" value="/student/timetable/index.php" />
+			<input type="hidden" name="AUTH_FORM" value="Y" />
+	<input type="hidden" name="TYPE" value="AUTH" />
+        <table border="0" class="auth-string" align="right"><tr><td><a class="login" onclick="javascript:document.getElementById('form-auth').className = document.getElementById('form-auth').className == 'form-auth-display' ? 'form-auth' : 'form-auth-display';return false;" href="#">авторизация</a></td><td>|</td><td><a class="login" href="/auth.php?register=yes">регистрация</a></td></tr></table>
+        <div id="form-auth" class="form-auth">
+	<table border="0" class="auth-login" cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="left">Логин:</td>
+ <td><input type="text" class="top" name="USER_LOGIN" maxlength="50" value="" size="10" /></td>
+                        </tr>
+                        <tr>
+				<td class="left">Пароль:</td>
+ <td><input type="password" class="top" name="USER_PASSWORD" maxlength="50" size="10" /></td>
+			</tr>
+                        <tr>
+				<td colspan="2" class="center"><input type="submit" class="top-submit" name="Login" value="Войти" /></td>
+			</tr>
+                        <tr>
+                          <td colspan="2">
+                            <table border="0" class="auth-bottom">
+		 <tr>
+				<td><input class="top-check" type="checkbox" id="USER_REMEMBER_frm" name="USER_REMEMBER" value="Y" />
+				<label for="USER_REMEMBER_frm">Запомнить пароль</label></td>
+ </tr>
+		 <tr>
+				<td><noindex><a style="font-size:10px;" href="/auth.php?register=yes&amp;forgot_password=yes&amp;backurl=%2Fstudent%2Ftimetable%2Findex.php" rel="nofollow">Забыли свой пароль?</a></noindex></td>
+ </tr>
+ </table>
+                          </td>
+                        </tr>
+	</table>
+        </div>
+</form>
+</div>
+
+
+    </div>
+  <div id="site-header-bg">
+  <div class="change-site"><a href="/">Русский</a>&nbsp;&nbsp;<a href="/en/">English</a></div>
+  <div id="header_menu">
+<a href="/" title="Главная"><img width="12" height="11" src="/bitrix/templates/index_new/images/icons/home.gif" alt="Главная" border="0" /></a>
+<a href="/search/" title="Поиск"><img width="12" height="12" src="/bitrix/templates/index_new/images/icons/search.gif" alt="Поиск" border="0" /></a>
+<a href="/search/map.php" title="Карта сайта"><img width="14" height="9" src="/bitrix/templates/index_new/images/icons/map.gif" alt="Карта сайта" border="0" /></a>
+<a href="/student/timetable/index.php?print=Y" title="Версия для печати" rel="nofollow"><img width="12" height="12" src="/bitrix/templates/index_new/images/icons/printer.gif" alt="Версия для печати" border="0" /></a><br clear="all" />
+<script src="/bitrix/templates/.default/components/bitrix/search.form/suggest1/script.js?1275036480" type="text/javascript"></script><div class="search-form">
+<form action="/search/index.php"" name="search-form">
+<table class="wr-search" cellpadding="0" cellspacing="0" border="0" width="150">
+<tr><td>
+	<script src="/bitrix/templates/.default/components/bitrix/search.suggest.input/.default/script.js?1275036684" type="text/javascript"></script><script src="/bitrix/js/main/cphttprequest.js"></script>
+<script type="text/javascript">
+if (typeof oObject != "object")
+	window.oObject = {};
+document.q703222004_CheckThis = function(oObj)
+{
+	try
+	{
+		if(SuggestLoaded)
+		{
+			if (typeof window.oObject[oObj.id] != 'object')
+				window.oObject[oObj.id] = new JsSuggest(oObj, 'pe:10,md5:');
+			return;
+		}
+		else
+		{
+			setTimeout(q703222004_CheckThis(oObj), 10);
+		}
+	}
+	catch(e)
+	{
+		setTimeout(q703222004_CheckThis(oObj), 10);
+	}
+}
+</script>
+<IFRAME style="width:0px; height:0px; border: 0px;display:none;" src="javascript:void(0)" name="q703222004_div_frame" id="q703222004_div_frame"></IFRAME>
+<input size="15" name="q" id="q703222004" value="Поиск..." class="search-suggest" type="text" autocomplete="off" onfocus="q703222004_CheckThis(this);this.value='';" /></td>
+<td><input name="s" class="button" type="submit" value="" />
+</td></tr>
+</table>
+</form>
+</div> </div>
+    <div class="site-header-logo"></div>
+    <div class="site-header-text"></div>
+    <div class="site-header-text-bottom"></div>
+    <div class="breadcrumb">
+      <ul class="breadcrumb-navigation"><li><a style="color:#000000;font-size:10px;" href="/" title="Главная">Главная</a></li><li><span>&nbsp;/&nbsp;</span></li><li><a style="color:#000000;font-size:10px;" href="/student/" title="Студентам">Студентам</a></li><li><span>&nbsp;/&nbsp;</span></li><li><a style="color:#000000;font-size:10px;" href="/student/timetable/" title="Расписание занятий">Расписание занятий</a></li></ul>    </div>
+  </div>
+  <div class="menu-top">
+    <div class="menu-bg-left"></div>
+     <script src="/bitrix/templates/.default/components/bitrix/menu/horizontal_multilevel3/script.js?1271999835" type="text/javascript"></script><ul id="horizontal-multilevel-menu">
+<li class="first">&nbsp;</li>
+<li><a class="root-item" href="/">Главная</a></li>   	          <li><a onclick="ShowBlock(1);this.id='root-item-selected';this.className='root-item-selected';" href="/about/" class="root-item" id="root-item">О филиале</a></li>
+                                                                                                                                       	          <li><a onclick="ShowBlock(2);this.id='root-item-selected';this.className='root-item-selected';" href="/org/" class="root-item" id="root-item">Структура</a></li>
+                                                                                                         	          <li><a onclick="ShowBlock(3);this.id='root-item-selected';this.className='root-item-selected';" href="/student/" class="root-item-selected" id="root-item-selected">Студентам</a></li>
+                                                                                                                                                                                    	          <li><a onclick="ShowBlock(4);this.id='root-item-selected';this.className='root-item-selected';" href="/entry/" class="root-item" id="root-item">Абитуриентам и поступающим в магистратуру</a></li>
+                                             	          <li><a onclick="ShowBlock(5);this.id='root-item-selected';this.className='root-item-selected';" href="/science/" class="root-item" id="root-item">Наука</a></li>
+                                                                                                                              	          <li><a onclick="ShowBlock(6);this.id='root-item-selected';this.className='root-item-selected';" href="/smi/" class="root-item" id="root-item">PRомо и СМИ</a></li>
+                                                            </ul>
+<div class="menu-clear-left"></div>
+<div id="menu">
+         <div id="1" class="menu-block">
+                     <span class="menu-item"><a href="/about/history.php">История</a></span>
+                     <span class="menu-item"><a href="/about/mission.php">Миссия</a></span>
+                     <span class="menu-item"><a href="/about/top/">Руководство</a></span>
+                     <span class="menu-item"><a href="/about/aup/">Учредительные документы</a></span>
+                     <span class="menu-item"><a href="/about/phone/">Телефонный справочник</a></span>
+                     <span class="menu-item"><a href="/org/units/senate/">Ученый совет</a></span>
+                     <span class="menu-item"><a href="/forum/">Форумы</a></span>
+                     <span class="menu-item"><a href="/photo/">Фотогалерея</a></span>
+               </div>
+         <div id="2" class="menu-block">
+                     <span class="menu-item"><a href="/org/department/">Факультеты</a></span>
+                     <span class="menu-item"><a href="/org/chair/">Кафедры</a></span>
+                     <span class="menu-item"><a href="/org/center/">Центры дополнительного образования</a></span>
+                     <span class="menu-item"><a href="/org/units/">Структурные подразделения</a></span>
+                     <span class="menu-item"><a href="/org/staff/">Сотрудники</a></span>
+                     <span class="menu-item"><a href="/org/units/library/">Библиотека</a></span>
+               </div>
+         <div id="3" class="menu-block-current">
+                     <span class="menu-item"><a href="/student/timetable/">Расписание занятий</a></span>
+                     <span class="menu-item"><a href="/student/shedule/">Расписание звонков</a></span>
+                     <span class="menu-item"><a href="/student/sport/">Спорт</a></span>
+                     <span class="menu-item"><a href="/org/units/crk/">Центр развития карьеры</a></span>
+                     <span class="menu-item"><a href="/student/dk/">Дикуссионный клуб</a></span>
+                     <span class="menu-item"><a href="/student/document/">Локальные акты</a></span>
+                     <span class="menu-item"><a href="/entry/ma/">Магистратура</a></span>
+                     <span class="menu-item"><a href="http://incnavigator.ru">Бизнес-инкубатор</a></span>
+                     <span class="menu-item"><a href="/student/student_anthem_hse_perm/">Студенческий гимн НИУ ВШЭ - Пермь</a></span>
+                     <span class="menu-item"><a href="/student/stud_org/">Студенческие организации и инициативы</a></span>
+                     <span class="menu-item"><a href="http://www.alumni.hse.ru/">Ассоциация выпускников</a></span>
+               </div>
+         <div id="4" class="menu-block">
+                     <span class="menu-item"><a href="/entry/ma/">Магистратура</a></span>
+                     <span class="menu-item"><a href="/entry/hostel/">Общежитие</a></span>
+               </div>
+         <div id="5" class="menu-block">
+                     <span class="menu-item"><a href="/science/official.php">Официальные документы</a></span>
+                     <span class="menu-item"><a href="/science/publication/">Публикации и выступления</a></span>
+                     <span class="menu-item"><a href="/science/project">Прикладные проекты</a></span>
+                     <span class="menu-item"><a href="/science/seminar.php">Научные семинары</a></span>
+                     <span class="menu-item"><a href="/science/markup">Академические надбавки</a></span>
+                     <span class="menu-item"><a href="/science/investigation">Студенческие исследования </a></span>
+               </div>
+         <div id="6" class="menu-block">
+                     <span class="menu-item"><a href="/smi/about/">О нас пишут </a></span>
+                     <span class="menu-item"><a href="/smi/comment/">Комментарии наших специалистов</a></span>
+                     <span class="menu-item"><a href="/smi/video_list.php">Медиа</a></span>
+               </div>
+   </div>
+ 
+  </div>
+  <div id="site-header-title">
+    <table class="title" border="0" cellpadding="0" cellspacing="0"><tr><td>
+      <div class="link_block"><a class="link-dashed" href="http://www.hse.ru" target="_blank" >Вышка в Москве</a> <a class="link-dashed" href="http://www.hse.spb.ru" target="_blank" >Вышка в Питере</a> <a class="link-dashed" href="http://www.hse.nnov.ru" target="_blank" >Вышка в Нижнем</a></div>
+  </td></tr></table>
+  </div>
+  <div class="line-bottom-title"></div>
+<div id="middle">
+
+		<div id="container">
+			<div id="content"><h1 class="title">Расписание занятий</h1><div class="timetable">
+<!-- id="" -->
+	<p><b>Дневное отделение</b></p>
+		<ul>
+							<li>
+									<a href="/upload/iblock/c85/c857a6394bccf2f6385c2b338d34595a.xls">2 неделя</a>
+				<br><small>
+				Дата изменения: 
+				10-09-2012 13:34.				</small><br><br>
+				</li>
+							<li>
+									<a href="/upload/iblock/8ab/8ab45f8c2b55439ee4fd4e7d5ceec21a.xls">Расписание пересдач по факультетам</a>
+				<br><small>
+				Дата изменения: 
+				10-09-2012 16:12.				</small><br><br>
+				</li>
+					</ul>
+
+	<p><b>Магистратура</b></p>
+		<ul>
+							<li>
+									<a href="/upload/iblock/093/093255f03fdca5535b273382813e2648.xls">2 курс  (с 03.09.2012)</a>
+				<br><small>
+				Дата изменения: 
+				10-09-2012 18:10.				</small><br><br>
+				</li>
+							<li>
+									<a href="/upload/iblock/88a/88aa8e458ebcb679d9ff856dee6f589f.xls">1 курс  (с 03.09.2012)</a>
+				<br><small>
+				Дата изменения: 
+				10-09-2012 12:32.				</small><br><br>
+				</li>
+					</ul>
+
+	<p><b>Факультет профессиональной переподготовки</b></p>
+		<ul>
+					</ul>
+
+	<p><b>Дистанционное обучение</b></p>
+		<ul>
+					</ul>
+
+	<p><b>Вечернее отделение</b></p>
+		<ul>
+							<li>
+									<a href="/upload/iblock/c5e/c5ebac22ab7c278c2feb1093a264d04b.xls">21,22 сентября</a>
+				<br><small>
+				Дата изменения: 
+				10-09-2012 18:41.				</small><br><br>
+				</li>
+							<li>
+									<a href="/upload/iblock/d60/d60c2f0e8e94ea8f6034b757b881f5dc.xls">14,15 сентября</a>
+				<br><small>
+				Дата изменения: 
+				10-09-2012 18:41.				</small><br><br>
+				</li>
+							<li>
+									<a href="/upload/iblock/4f2/4f2c31d689c12a9075280b6d270ed003.xls">28,29 сентября</a>
+				<br><small>
+				Дата изменения: 
+				10-09-2012 18:42.				</small><br><br>
+				</li>
+					</ul>
+
+	<p><b>Заочное отделение</b></p>
+		<ul>
+					</ul>
+
+ </div><!-- #content-->
+		</div><!-- #container-->
+
+		<div class="sidebar sl">
+		</div><!-- .sidebar.sl -->
+		<div class="sidebar sr">
+      <div class="text-right">
+        
+<div></div>
+
+<table height="400" cellspacing="1" cellpadding="1" border="0"> 
+  <tbody> 
+    <tr><td></td></tr>
+   </tbody>
+ </table>
+        </div>
+                       
+		</div><!-- .sidebar.sr -->
+
+	</div><!-- #middle-->
+
+</div><!-- #wrapper -->
+
+<div id="site-footer">
+<div class="footer-text">
+&copy;&nbsp;2009&nbsp;&mdash;&nbsp;2011&nbsp;НИУ ВШЭ&nbsp;&mdash;&nbsp;Пермь
+</div>
+</div>
+<!-- #footer -->
+
+</body>
+</html>
