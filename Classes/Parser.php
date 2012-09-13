@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Classes/PHPExcel/IOFactory.php';
+include_once __DIR__.'/PHPExcel/IOFactory.php';
 
 class Parser
 {
@@ -25,12 +25,10 @@ class Parser
 
 		$this->objPHPExcel = $this->objReader->load($inputFileName);
 
-		echo "File <b>".pathinfo($inputFileName, PATHINFO_BASENAME)."</b> is <b>$inputFileType</b> type,
+		Debug::Log("File <b>".pathinfo($inputFileName, PATHINFO_BASENAME)."</b> is <b>$inputFileType</b> type,
 			contains <b>{$this->objPHPExcel->getSheetCount()}</b> worksheet".
-			(($this->objPHPExcel->getSheetCount() == 1) ? '' : 's').":<br />";
-		print "<pre>";
-		print_r($this->objPHPExcel->getSheetNames());
-		print "</pre>";
+			(($this->objPHPExcel->getSheetCount() == 1) ? '' : 's').":");
+		Debug::Log($this->objPHPExcel->getSheetNames());
 		echo '<hr />';
 
 		return $this->objPHPExcel->getSheetNames();
@@ -223,9 +221,7 @@ class Parser
 				$groups[$col] = $text;
 			}
 		}
-		print "<pre>";
-		print_r($groups);
-		print "</pre>";
+		Debug::Log($groups);
 
 		return $groups;
 	}

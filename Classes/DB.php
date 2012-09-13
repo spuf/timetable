@@ -29,10 +29,3 @@ class DB {
 		}
 	}
 }
-
-$host = isset($_SERVER["DB1_HOST"]) ? 'host='.$_SERVER["DB1_HOST"] : 'unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock';
-$host .= isset($_SERVER["DB1_PORT"]) ? ';port='.$_SERVER["DB1_PORT"] : '';
-$user = isset($_SERVER["DB1_USER"]) ? $_SERVER["DB1_USER"] : 'root';
-$pass = isset($_SERVER["DB1_PASS"]) ? $_SERVER["DB1_PASS"] : 'root';
-
-DB::Connect('mysql:dbname=timetable;'.$host, $user, $pass);

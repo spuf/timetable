@@ -1,8 +1,6 @@
 <?php
 
-include_once 'config.php';
-include_once 'Parser.php';
-include_once 'DB.php';
+include_once 'bootstrap.php';
 
 $inputFileName = './files/test.xls';
 
@@ -16,8 +14,6 @@ $parser->PrintTimetableArray($data);
 print "<hr>";
 
 $data = DB::Query('SELECT * FROM log ORDER BY time DESC LIMIT 20');
-print "<pre>";
-print_r($data);
-print "</pre>";
+Debug::Log($data);
 
-print meminfo();
+print Debug::MemInfo();
