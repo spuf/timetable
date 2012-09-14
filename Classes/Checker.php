@@ -37,7 +37,7 @@ class Checker {
 		if (Storage::Get('LastQueue', 0) + 60 < time()) {
 			Storage::Set('LastQueue', time());
 
-			$links = DB::Query('SELECT ID, Link FROM Files WHERE Parsed = 0 ORDER BY Date DESC LIMIT 1');
+			$links = DB::Query('SELECT ID, Link FROM Files WHERE Parsed = 0 ORDER BY ID LIMIT 1');
 			if (count($links) > 0) {
 				$this->parser->LoadFromURL("http://www.hse.perm.ru/{$links[0]['Link']}");
 				$timetable = $this->parser->ToTimetableArray();

@@ -42,7 +42,6 @@ DROP TABLE IF EXISTS `Files`;
 
 CREATE TABLE `Files` (
   `ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `Category` varchar(80) DEFAULT NULL,
   `Title` varchar(80) NOT NULL DEFAULT '',
   `Date` datetime NOT NULL,
   `Link` varchar(250) NOT NULL DEFAULT '',
