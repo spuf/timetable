@@ -16,7 +16,7 @@ class Parser
 	var $tempFile;
 
 	function LoadFromFile($inputFileName) {
-		$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+		//$inputFileType = PHPExcel_IOFactory::identify($inputFileName);
 		$inputFileType = 'Excel5';
 
 		$this->objReader = PHPExcel_IOFactory::createReader($inputFileType);
@@ -29,8 +29,6 @@ class Parser
 			contains <b>{$this->objPHPExcel->getSheetCount()}</b> worksheet".
 			(($this->objPHPExcel->getSheetCount() == 1) ? '' : 's').":");
 		Debug::Log($this->objPHPExcel->getSheetNames());
-		echo '<hr />';
-
 		return $this->objPHPExcel->getSheetNames();
 	}
 
@@ -119,7 +117,7 @@ class Parser
 		$timetable = array();
 		foreach ($this->objPHPExcel->getAllSheets() as $objSheet) {
 			$timetable = array_merge($timetable, $this->SheetToTimetableArray($objSheet));
-			print "<hr>";
+			//Debug::Log('<hr>');
 		}
 		return $timetable;
 	}
@@ -207,7 +205,7 @@ class Parser
 				$max = $sum;
 			}
 		}
-		print "Found groups row: $groupsRow<br>";
+		//Debug::Log("Found groups row: $groupsRow");
 
 		return $groupsRow;
 	}
@@ -221,22 +219,22 @@ class Parser
 				$groups[$col] = $text;
 			}
 		}
-		Debug::Log($groups);
+		//Debug::Log($groups);
 
 		return $groups;
 	}
 
 	function IsDayCell(&$text) {
 		if (preg_match('/^\s*(?<dow>\S+).+(?<date>\d{2}\.\d{2}\.\d{4})\s*$/us', $text, $matches)) {
-			$day = array(
-				'date' => $matches['date'],
-				'dow' => $matches['dow'],
-			);
-			if (preg_match('/(?<d>\d{2})\.(?<m>\d{2})\.(?<y>\d{4})/', $matches[2], $date)) {
+			if (preg_match('/(?<d>\d{2})\.(?<m>\d{2})\.(?<y>\d{4})/', $matches['date'], $date)) {
 				$date = $date['y'] .'-'. $date['m'] .'-'. $date['d'];
-				print "Found date: $date<br>";
+				//Debug::Log("Found date: $date");
+				$day = array(
+					'date' => $date,
+					'dow' => $matches['dow'],
+				);
+				return $day;
 			}
-			return $day;
 		}
 		return false;
 	}
