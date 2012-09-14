@@ -16,5 +16,5 @@ if (!empty($_SERVER['REQUEST_URI'])) {
 
 while (true) {
 	Check();
-	sleep(60 * 15);
+	sleep(60);
 }
