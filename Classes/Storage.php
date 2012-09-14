@@ -9,13 +9,13 @@ class Storage {
 		), false);
 	}
 
-	static function Get($key) {
+	static function Get($key, $default = null) {
 		$data = DB::Query('SELECT `Value` FROM Variables WHERE `Key` = :key', array(
 			':key' => $key,
 		));
 		if (count($data) > 0) {
 			return unserialize($data[0]['Value']);
 		}
-		return null;
+		return $default;
 	}
 }

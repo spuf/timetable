@@ -1,6 +1,8 @@
 <?php
 
+header('Content-type: text/html; charset=utf-8');
 mb_internal_encoding('utf-8');
+date_default_timezone_set('Asia/Yekaterinburg');
 
 spl_autoload_register(function ($class) {
 	if ((class_exists($class)) || (strpos($class, 'PHPExcel') === 0)) {

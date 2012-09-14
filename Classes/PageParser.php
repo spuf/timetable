@@ -5,7 +5,7 @@ class PageParser {
 	var $html;
 	var $array;
 
-	function __construct($url) {
+	function Load($url) {
 		$this->html = file_get_contents($url);
 		$this->html = mb_convert_encoding($this->html, 'utf-8');
 	}
@@ -36,7 +36,7 @@ class PageParser {
 				}
 			}
 		}
-		Debug::Log($this->array);
+		//Debug::Log($this->array);
 		return $this->array;
 	}
 
