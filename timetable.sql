@@ -7,7 +7,7 @@
 #
 # Адрес: localhost (MySQL 5.5.25)
 # Схема: timetable
-# Время создания: 2012-09-14 12:18:30 +0000
+# Время создания: 2012-09-15 13:49:39 +0000
 # ************************************************************
 
 
@@ -47,6 +47,7 @@ CREATE TABLE `Files` (
   `Link` varchar(250) NOT NULL DEFAULT '',
   `Parsed` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`),
+  UNIQUE KEY `Constraint` (`Title`,`Date`),
   KEY `Parsed` (`Parsed`),
   KEY `Date` (`Date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -86,11 +87,11 @@ CREATE TABLE `Pairs` (
   KEY `DateID` (`DateID`),
   KEY `TimeID` (`TimeID`),
   KEY `StyleID` (`StyleID`),
+  CONSTRAINT `pairs_date` FOREIGN KEY (`DateID`) REFERENCES `Dates` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pairs_file` FOREIGN KEY (`FileID`) REFERENCES `Files` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `pairs_group` FOREIGN KEY (`GroupID`) REFERENCES `Groups` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `pairs_date` FOREIGN KEY (`DateID`) REFERENCES `Dates` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `pairs_time` FOREIGN KEY (`TimeID`) REFERENCES `Times` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `pairs_style` FOREIGN KEY (`StyleID`) REFERENCES `Styles` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `pairs_style` FOREIGN KEY (`StyleID`) REFERENCES `Styles` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `pairs_time` FOREIGN KEY (`TimeID`) REFERENCES `Times` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -182,8 +183,8 @@ CREATE TABLE `Withs` (
   PRIMARY KEY (`ID`),
   KEY `PairID` (`PairID`),
   KEY `GroupID` (`GroupID`),
-  CONSTRAINT `withs_pair` FOREIGN KEY (`PairID`) REFERENCES `Pairs` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `withs_group` FOREIGN KEY (`GroupID`) REFERENCES `Groups` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `withs_group` FOREIGN KEY (`GroupID`) REFERENCES `Groups` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `withs_pair` FOREIGN KEY (`PairID`) REFERENCES `Pairs` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
