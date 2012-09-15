@@ -8,6 +8,7 @@ class PageParser {
 	function Load($url) {
 		$this->html = file_get_contents($url);
 		$this->html = mb_convert_encoding($this->html, 'utf-8');
+		return (strpos($this->html, 'Расписание занятий') !== false);
 	}
 
 	function Size() {
@@ -43,7 +44,11 @@ class PageParser {
 	function GetParsable($array = null) {
 		if (is_null($array))
 			$array = $this->array;
-		return isset($array['Дневное отделение']) ? $array['Дневное отделение'] : array();
+		$array = isset($array['Дневное отделение']) ? $array['Дневное отделение'] : array();
+		$array = array_filter($array, function ($item) {
+			return (pathinfo($item['link'], PATHINFO_EXTENSION) == 'xls' && strpos($item['name'], 'неделя') !== false);
+		});
+		return $array;
 	}
 
 	function GetDiff(&$cache) {
