@@ -54,7 +54,7 @@ $timetable = DB::Query('
 if (count($timetable) > 0) {
 	print "<table border=1>";
 	foreach ($timetable as $pair) {
-		$title = nl2br(htmlentities($pair['Title']));
+		$title = nl2br(htmlentities($pair['Title'], ENT_QUOTES, 'utf-8'));
 		print "<tr valign='middle'><td align='center'>{$pair['Number']}<br><small>{$pair['Time']}</small></td><td><div style='{$pair['Style']}'>{$title}</div></td></tr>";
 	}
 	print "</table>";
