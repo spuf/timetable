@@ -52,9 +52,10 @@ $timetable = DB::Query('
 ));
 
 if (count($timetable) > 0) {
-	print "<table>";
+	print "<table border=1>";
 	foreach ($timetable as $pair) {
-		print "<tr><td>{$pair['Number']}<br><small>{$pair['Time']}</small></td><td><div style='{$pair['Style']}'>".nl2br($pair['Title'])."</div></td></tr>";
+		$title = nl2br(htmlentities($pair['Title']));
+		print "<tr valign='middle'><td align='center'>{$pair['Number']}<br><small>{$pair['Time']}</small></td><td><div style='{$pair['Style']}'>{$title}</div></td></tr>";
 	}
 	print "</table>";
 } else {
