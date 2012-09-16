@@ -29,9 +29,9 @@ foreach ($data as $item) {
 
 print <<<HTML
 <form action="?" method="get">
-<select name="file">$files</select>
-<select name="group">$groups</select>
-<select name="date">$dates</select>
+<select name="file"><option value="-1"></option>$files</select>
+<select name="group"><option value="-1"></option>$groups</select>
+<select name="date"><option value="-1"></option>$dates</select>
 <input type="submit" value="Show">
 </form>
 HTML;
@@ -51,4 +51,12 @@ $timetable = DB::Query('
 	':date' => $dateId,
 ));
 
-Debug::Log($timetable);
+if (count($timetable) > 0) {
+	print "<table>";
+	foreach ($timetable as $pair) {
+		print "<tr><td>{$pair['Number']}<br><small>{$pair['Time']}</small></td><td><div style='{$pair['Style']}'>".nl2br($pair['Title'])."</div></td></tr>";
+	}
+	print "</table>";
+} else {
+	print "<p>Ничего</p>";
+}
