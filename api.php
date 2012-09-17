@@ -80,30 +80,29 @@ function api_2($data) {
 				));
 
 				$date = null;
-				if (count($sql) > 0) {
-					foreach ($sql as $pair) {
-						if (!isset($timetable[$pair['Date']])) {
-							$timetable[$pair['Date']] = array(
-								'dow' => $pair['Dow'],
-								'pairs' => array(),
-							);
-						}
-						$style = array();
-						if (!empty($pair['Style'])) {
-							foreach (explode(';', trim($pair['Style'], ';')) as $item) {
-								list($key, $value) = explode(':', $item);
-								$style[$key] = $value;
-							}
-						}
-						$timetable[$pair['Date']]['pairs'][$pair['Number']] = array(
-							'time' => $pair['Time'],
-							'title' => $pair['Title'],
-							'style' => $style,
+				for($i = 0; $i < min(count($sql), 2); $i++) {
+					$pair = $sql[$i];
+					if (!isset($timetable[$pair['Date']])) {
+						$timetable[$pair['Date']] = array(
+							'dow' => $pair['Dow'],
+							'pairs' => array(),
 						);
-						$with = explode(',', $pair['With']);
-						if (count($with) > 0) {
-							$timetable[$pair['Date']]['pairs'][$pair['Number']]['with']	= $with;
+					}
+					$style = array();
+					if (!empty($pair['Style'])) {
+						foreach (explode(';', trim($pair['Style'], ';')) as $item) {
+							list($key, $value) = explode(':', $item);
+							$style[$key] = $value;
 						}
+					}
+					$timetable[$pair['Date']]['pairs'][$pair['Number']] = array(
+						'time' => $pair['Time'],
+						'title' => $pair['Title'],
+						'style' => $style,
+					);
+					$with = explode(',', $pair['With']);
+					if (count($with) > 0) {
+						$timetable[$pair['Date']]['pairs'][$pair['Number']]['with']	= $with;
 					}
 				}
 			}

@@ -2,11 +2,33 @@
 
 include_once 'bootstrap.php';
 
+$groupId = isset($_COOKIE['group']) ? $_COOKIE['group'] : -1;
+$groupId = isset($_GET['group']) ? $_GET['group'] : $groupId;
+
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Расписание ВШЭ (ПФ)</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h1>Объявление</h1>
+<p>
+    Скоро будет ок дизайн.
+</p>
+
+<h1>Расписание</h1>
+
+<?php
+
 $lastCheck = Storage::Get('LastCheck', 0);
 $lastCheck = $lastCheck > 0 ? date('H:i d.m.Y', $lastCheck) : 'Never';
-Debug::Log("Last check for new files: $lastCheck");
+Debug::Log("Последняя проверка новых файлов с расписанием: $lastCheck");
 
-$groupId = isset($_GET['group']) ? $_GET['group'] : -1;
+setcookie('group', $groupId, time() + 60*60*7*3);
 
 $groups = '';
 $data = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
@@ -36,7 +58,6 @@ $timetable = DB::Query('
 		JOIN Files f ON f.ID = p.FileID
 	WHERE p.GroupID = :group
 		AND d.Date >= DATE(NOW())
-		AND d.Date <= DATE(NOW() + INTERVAL 4 DAY)
 		AND p.FileID = (
 			SELECT MAX(pi.FileID)
 			FROM Pairs pi
@@ -68,3 +89,12 @@ if (count($timetable) > 0) {
 	print "<p>Ничего</p>";
 }
 
+?>
+<h2>Ссылочки</h2>
+<ul>
+    <li><a href="http://timetable-spuf.dotcloud.com/">Старый сайт</a></li>
+</ul>
+
+<p><small><a href="http://spuf.ru/" title="Арсений Разин">spuf.ru</a><small></p>
+</body>
+</html>
