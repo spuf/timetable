@@ -46,7 +46,7 @@ function api_2($data) {
 			}
 			break;
 		case 'latest':
-			$groupId = intval($_GET['group']);
+			$groupId = (int)intval($_GET['group']);
 			$groups = DB::Query('SELECT Title FROM Groups ORDER BY Title WHERE ID = :id', array(':id' => $groupId));
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
 			$timetable = array();
