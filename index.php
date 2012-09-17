@@ -20,8 +20,7 @@ $groupId = isset($_GET['group']) ? $_GET['group'] : $groupId;
     Скоро будет ок дизайн.
 </p>
 
-<h1>Расписание</h1>
-
+<h2>Расписание</h2>
 <?php
 
 $lastCheck = Storage::Get('LastCheck', 0);
