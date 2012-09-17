@@ -81,7 +81,7 @@ function api_2($data) {
 
 				$date = null;
 				if (count($sql) > 0) {
-					foreach ($timetable as $pair) {
+					foreach ($sql as $pair) {
 						if (!isset($timetable[$pair['Date']])) {
 							$timetable[$pair['Date']] = array(
 								'dow' => $pair['Dow'],
