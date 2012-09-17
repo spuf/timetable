@@ -74,7 +74,7 @@ function api_2($data) {
 							WHERE pi.GroupID = p.GroupID
 								AND pi.DateID = p.DateID
 						)
-					ORDER BY p.ID, t.Number
+					ORDER BY d.Date, t.Number
 				", array(
 					':group' => $groupId,
 					':now' => date('Y-m-d', strtotime('+5 hours')),
