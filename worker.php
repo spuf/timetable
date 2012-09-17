@@ -11,7 +11,7 @@ function Check() {
 }
 
 if (!empty($_SERVER['REQUEST_URI'])) {
-	die("Run by request is forbiden!");
+	die("Run by request is forbidden!");
 }
 
 while (true) {
