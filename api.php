@@ -40,6 +40,10 @@ function api_2($data) {
 	switch ($_GET['query']) {
 		case 'groups':
 			$data['groups'] = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
+			foreach ($data['groups'] as $key => $value) {
+				$data['groups'][$key]['id'] = $value['ID'];
+				$data['groups'][$key]['name'] = $value['Title'];
+			}
 			break;
 		case 'latest':
 			$groupId = intval($_GET['group']);
