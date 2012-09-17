@@ -89,16 +89,18 @@ function api_2($data) {
 							);
 						}
 						$style = array();
-						foreach (explode(';', trim($pair['Style'], ';')) as $item) {
-							list($key, $value) = explode(':', $item);
-							$style[$key] = $value;
+						if (!empty($pair['Style'])) {
+							foreach (explode(';', trim($pair['Style'], ';')) as $item) {
+								list($key, $value) = explode(':', $item);
+								$style[$key] = $value;
+							}
 						}
 						$timetable[$pair['Date']]['pairs'][$pair['Number']] = array(
 							'time' => $pair['Time'],
 							'title' => $pair['Title'],
 							'style' => $style,
 						);
-						$with = explode(',', $pair['with']);
+						$with = explode(',', $pair['With']);
 						if (count($with) > 0) {
 							$timetable[$pair['Date']]['pairs'][$pair['Number']]['with']	= $with;
 						}
