@@ -75,13 +75,13 @@ if (count($timetable) > 0) {
 		if ($date != $pair['Date']) {
 			$date = $pair['Date'];
 			if (!is_null($date))
-				print "</table>";
-			print "<p>{$pair['Date']} - {$pair['Dow']} - ({$pair['FileName']} от {$pair['FileDate']})</p>";
+				print "</table></td></tr></table>";
+			print "<table><caption>({$pair['FileName']} от {$pair['FileDate']})</caption><tr valign='middle'><td align='center' width='100'>{$pair['Date']}<br>{$pair['Dow']}</td><td>";
 			print "<table border=1>";
 		}
-		print "<tr valign='middle'><td align='center'>{$pair['Number']}<br><small>{$pair['Time']}</small></td><td><div style='{$pair['Style']}'>{$title}</div><small>{$pair['With']}</small></td></tr>";
+		print "<tr valign='middle'><td align='center' width='80'>{$pair['Number']}<br><small>{$pair['Time']}</small></td><td width='300'><div style='{$pair['Style']}'>{$title}</div><small>{$pair['With']}</small></td></tr>";
 	}
-	print "</table>";
+	print "</table></td></tr></table>";
 
 } else {
 	print "<p>Ничего</p>";
