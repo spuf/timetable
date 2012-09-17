@@ -53,10 +53,10 @@ function api_2($data) {
 			$link = 'http://timetable.spuf.ru/';
 
 			if ($data['group']) {
-				$sql = DB::Query('
-					SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, "%d.%m.%Y") as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, "%H:%i %d.%m.%Y") as FileDate,
+				$sql = DB::Query("
+					SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
 						(
-						SELECT GROUP_CONCAT(w.GroupID SEPARATOR ",") FROM Withs w
+						SELECT GROUP_CONCAT(w.GroupID SEPARATOR ',') FROM Withs w
 						WHERE w.PairID = p.ID
 						) as `With`
 					FROM Pairs p
@@ -65,8 +65,8 @@ function api_2($data) {
 						JOIN Dates d ON d.ID = p.DateID
 						JOIN Files f ON f.ID = p.FileID
 					WHERE p.GroupID = :group
-						AND d.Date >= DATE(NOW())
-						AND d.Date <= DATE(NOW() + INTERVAL 4 DAY)
+						AND d.Date >= DATE(:now)
+						AND d.Date <= DATE(:now + INTERVAL 4 DAY)
 						AND p.FileID = (
 							SELECT MAX(pi.FileID)
 							FROM Pairs pi
@@ -75,14 +75,19 @@ function api_2($data) {
 								AND pi.DateID = p.DateID
 						)
 					ORDER BY p.ID, t.Number
-				', array(
+				", array(
 					':group' => $groupId,
+					':now' => date('Y-m-d', strtotime('+5 hours')),
 				));
 
 				$date = null;
-				for($i = 0; $i < min(count($sql), 2); $i++) {
+				$days = 0;
+				for($i = 0; $i < count($sql); $i++) {
 					$pair = $sql[$i];
 					if (!isset($timetable[$pair['Date']])) {
+						$days += 1;
+						if ($days > 2)
+							break;
 						$timetable[$pair['Date']] = array(
 							'dow' => $pair['Dow'],
 							'pairs' => array(),
@@ -100,16 +105,18 @@ function api_2($data) {
 						'title' => $pair['Title'],
 						'style' => $style,
 					);
-					$with = explode(',', $pair['With']);
-					if (count($with) > 0) {
-						$timetable[$pair['Date']]['pairs'][$pair['Number']]['with']	= $with;
+					if (!empty($pair['With'])) {
+						$with = explode(',', $pair['With']);
+						if (count($with) > 0) {
+							$timetable[$pair['Date']]['pairs'][$pair['Number']]['with']	= $with;
+						}
 					}
 				}
 			}
 			else {
 				$data['error'] = 'Группа не найдена в базе';
 			}
-			//$data['link'] = $link;
+			$data['link'] = $link;
 			$data['timetable'] = $timetable;
 			break;
 		default:

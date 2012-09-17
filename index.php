@@ -4,6 +4,7 @@ include_once 'bootstrap.php';
 
 $groupId = isset($_COOKIE['group']) ? $_COOKIE['group'] : -1;
 $groupId = isset($_GET['group']) ? $_GET['group'] : $groupId;
+setcookie('group', $groupId, time() + 60*60*7*3);
 
 ?>
 
@@ -27,8 +28,6 @@ $lastCheck = Storage::Get('LastCheck', 0);
 $lastCheck = $lastCheck > 0 ? date('H:i d.m.Y', $lastCheck) : 'Never';
 Debug::Log("Последняя проверка новых файлов с расписанием: $lastCheck");
 
-setcookie('group', $groupId, time() + 60*60*7*3);
-
 $groups = '';
 $data = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
 foreach ($data as $item) {
@@ -39,14 +38,14 @@ foreach ($data as $item) {
 print <<<HTML
 <form action="?" method="get">
 <select name="group"><option value="-1"></option>$groups</select>
-<input type="submit" value="Show">
+<input type="submit" value="Показать">
 </form>
 HTML;
 
-$timetable = DB::Query('
-	SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, "%d.%m.%Y") as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, "%H:%i %d.%m.%Y") as FileDate,
+$timetable = DB::Query("
+	SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
 		(
-		SELECT GROUP_CONCAT(wg.Title SEPARATOR ", ") FROM Withs w
+		SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
 		JOIN Groups wg ON wg.ID = w.GroupID
 		WHERE w.PairID = p.ID
 		) as `With`
@@ -65,7 +64,7 @@ $timetable = DB::Query('
 				AND pi.DateID = p.DateID
 		)
 	ORDER BY p.ID, t.Number
-', array(
+", array(
 	':group' => $groupId,
 ));
 
