@@ -47,7 +47,7 @@ function api_2($data) {
 			break;
 		case 'latest':
 			$groupId = (int)intval($_GET['group']);
-			$groups = DB::Query('SELECT Title FROM Groups ORDER BY Title WHERE ID = :id', array(':id' => $groupId));
+			$groups = DB::Query('SELECT Title FROM Groups ORDER BY Title WHERE ID = '.$groupId);
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
 			$timetable = array();
 			$link = 'http://timetable.spuf.ru/';
