@@ -7,14 +7,22 @@ $groupId = isset($_GET['group']) ? $_GET['group'] : $groupId;
 setcookie('group', $groupId, time() + 60*60*7*3);
 
 ?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
     <title>Расписание ВШЭ (ПФ)</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 </head>
 <body>
+<div class="container">
 
 <h1>Объявление</h1>
 <p>
@@ -36,9 +44,9 @@ foreach ($data as $item) {
 }
 
 print <<<HTML
-<form action="?" method="get">
-<select name="group"><option value="-1"></option>$groups</select>
-<input type="submit" value="Показать">
+<form action="?" method="get" class="form-inline">
+<select name="group" class="input-small"><option value="-1"></option>$groups</select>
+<button type="submit" class="btn">Показать</button>
 </form>
 HTML;
 
@@ -94,5 +102,6 @@ if (count($timetable) > 0) {
 </ul>
 
 <p><small><a href="http://spuf.ru/" title="Арсений Разин">spuf.ru</a><small></p>
+</div>
 </body>
 </html>
