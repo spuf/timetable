@@ -50,8 +50,8 @@ function api_2($data) {
 			$groups = DB::Query('SELECT Title FROM Groups WHERE `ID` = '.$groupId.' ORDER BY Title');
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
 			$timetable = array();
-			$link = 'http://timetable.spuf.ru/?code=';
-
+			$link = 'http://timetable.spuf.ru/?';
+			$linkCode = '';
 			if ($data['group']) {
 				$sql = DB::Query("
 					SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.ID as FileCode, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
@@ -105,7 +105,7 @@ function api_2($data) {
 						'title' => $pair['Title'],
 						'style' => $style,
 					);
-					$link .= $pair['FileCode'];
+					$linkCode .= $pair['FileCode'];
 					if (!empty($pair['With'])) {
 						$with = explode(',', $pair['With']);
 						if (count($with) > 0) {
@@ -117,7 +117,7 @@ function api_2($data) {
 			else {
 				$data['error'] = 'Группа не найдена в базе';
 			}
-			$data['link'] = $link;
+			$data['link'] = $link.'code='.md5($linkCode);
 			$data['timetable'] = $timetable;
 			break;
 		default:
