@@ -50,11 +50,11 @@ function api_2($data) {
 			$groups = DB::Query('SELECT Title FROM Groups WHERE `ID` = '.$groupId.' ORDER BY Title');
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
 			$timetable = array();
-			$link = 'http://timetable.spuf.ru/';
+			$link = 'http://timetable.spuf.ru/?code=';
 
 			if ($data['group']) {
 				$sql = DB::Query("
-					SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
+					SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.ID as FileCode, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
 						(
 						SELECT GROUP_CONCAT(w.GroupID SEPARATOR ',') FROM Withs w
 						WHERE w.PairID = p.ID
@@ -105,6 +105,7 @@ function api_2($data) {
 						'title' => $pair['Title'],
 						'style' => $style,
 					);
+					$link .= $pair['FileCode'];
 					if (!empty($pair['With'])) {
 						$with = explode(',', $pair['With']);
 						if (count($with) > 0) {
