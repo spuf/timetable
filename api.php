@@ -43,12 +43,15 @@ function api_2($data) {
 			foreach ($data['groups'] as $key => $value) {
 				$data['groups'][$key]['id'] = $value['ID'];
 				$data['groups'][$key]['name'] = $value['Title'];
+				unset($data['groups'][$key]['ID']);
+				unset($data['groups'][$key]['Title']);
 			}
 			break;
 		case 'latest':
 			$groupId = (int)intval($_GET['group']);
 			$groups = DB::Query('SELECT Title FROM Groups WHERE `ID` = '.$groupId.' ORDER BY Title');
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
+			$data['timestamp'] = time();
 			$timetable = array();
 			$link = 'http://timetable.spuf.ru/?';
 			$linkCode = '';
