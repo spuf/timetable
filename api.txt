@@ -1,0 +1,59 @@
+Example
+=======
+http://jsfiddle.net/Edp5u/
+
+API v.1 (deprecated)
+-------
+
+/api.php?query=groups - список групп [id=name]
+/api.php?group=%id - расписание для группы на 2 дня
+
+API v.2
+-------
+
+* Сортированный список групп
+* Расписание выводит название группы
+* Улучшен текст ошибок
+
+/api.php?api=2&query=groups - список групп [{id, name}]
+/api.php?api=2&query=latest&group=%id - расписание для группы на 2 дня
+
+API v.3 (the biggest thing happen to API since API)
+———
+
+/api.php?api=3&query=groups
+	Список доступных групп.
+	Возвращает массив объектов с ключами id, name.
+	
+/api.php?api=3&query=latest&group=%group_id%&days=%days_count%
+	Расписание для группы (%group_id%) на несколько (%days_count%) дней.
+	Количество дней ограничивается на сервере, обычно 2 дня. Но в особых
+	случаях может быть 3 и более.
+	Возвращает ошибку (ключ error), если она есть.
+	Название группы (group).
+	Ссылку на расписание недели последнего дня (link).
+	Пример объекта с расписанием (timetable):
+		[
+			{
+				date: '21.09.2012',
+				dow: 'Friday',
+				pairs: [
+					{
+						number: 1,
+						time: '8:10-9:30',
+						title: 'English (307[3])\nTeacher E.S.',
+						style: ???,
+						with: 'BI-09-2, E-09-5',
+					},
+					{
+						number: 2,
+						time: '9:40-11:00',
+						title: 'English (307[3])\nTeacher E.S.',
+						style: '',
+						with: '',
+					},
+					...
+				],
+			},
+			...
+		]
