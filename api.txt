@@ -25,10 +25,8 @@ API v.3 (the biggest thing happen to API since API)
 	Список доступных групп.
 	Возвращает массив объектов с ключами id, name.
 	
-/api.php?api=3&query=latest&group=%group_id%&days=%days_count%
-	Расписание для группы (%group_id%) на несколько (%days_count%) дней.
-	Количество дней ограничивается на сервере, обычно 2 дня. Но в особых
-	случаях может быть 3 и более.
+/api.php?api=3&query=latest&group=%group_id%
+	Расписание для группы (%group_id%) на несколько дней (сейчас 2, возможно может стать больше).
 	Возвращает ошибку (ключ error), если она есть.
 	Название группы (group).
 	Ссылку на расписание недели последнего дня (link).
@@ -49,7 +47,7 @@ API v.3 (the biggest thing happen to API since API)
 						number: 2,
 						time: '9:40-11:00',
 						title: 'English (307[3])\nTeacher E.S.',
-						style: '',
+						style: ???,
 						with: '',
 					},
 					...
