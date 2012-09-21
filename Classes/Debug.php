@@ -19,7 +19,7 @@ class Debug {
 			':time' => date(DB::DATETIME),
 			':message' => $msg,
 			':variable' => serialize($var),
-		));
+		), false);
 	}
 
 }
