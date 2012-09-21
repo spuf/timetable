@@ -191,7 +191,7 @@ function api_3($data) {
 					if ($date != $pair['Date']) {
 						$date = $pair['Date'];
 						$day += 1;
-						if ($day > $daysCount)
+						if ($day >= $daysCount)
 							break;
 						$timetable[$day] = array(
 							'date' => $pair['Date'],
