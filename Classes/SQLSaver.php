@@ -53,8 +53,8 @@ class SQLSaver {
 				}
 			}
 		}
-		//Debug::Log($this->groups);
-		//Debug::Log($this->dates);
+		//Debug::Log('Groups list', $this->groups);
+		//Debug::Log('Dates list', $this->dates);
 	}
 
 	function LoadGroups() {

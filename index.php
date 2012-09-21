@@ -34,7 +34,7 @@ setcookie('group', $groupId, time() + 60*60*7*3);
 
 $lastCheck = Storage::Get('LastCheck', 0);
 $lastCheck = $lastCheck > 0 ? date('H:i d.m.Y', $lastCheck) : 'Never';
-Debug::Log("Последняя проверка новых файлов с расписанием: $lastCheck");
+print "<p>Последняя проверка новых файлов с расписанием: $lastCheck</p>";
 
 $groups = '';
 $data = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');

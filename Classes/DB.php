@@ -14,7 +14,9 @@ class DB {
 			DB::$dbh = new PDO($dsn, $username, $password, $options);
 			DB::$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
-			die('<b>PDOException on connect: </b>' . $e->getMessage());
+			$msg = 'PDOException on connect: ' . $e->getMessage();
+			Debug::Log($msg, $dsn);
+			die($msg);
 		}
 	}
 
@@ -22,7 +24,7 @@ class DB {
 		try {
 			$sth = DB::$dbh->prepare($sql);
 			$sth->execute($params);
-			//Debug::Log($sth->queryString);
+			//Debug::Log('SQL query is', $sth->queryString);
 			if ($fetch) {
 				return $sth->fetchAll(PDO::FETCH_ASSOC);
 			} else {
@@ -30,7 +32,10 @@ class DB {
 				return $sth->rowCount();
 			}
 		} catch (PDOException $e) {
-			die('<b>PDOException on query: </b>' . $e->getMessage());
+			$msg = 'PDOException on query: ' . $e->getMessage();
+			Debug::Log($msg, func_get_args());
+			die($msg);
 		}
 	}
+
 }

@@ -25,8 +25,9 @@ API v.3 (the biggest thing happen to API since API)
 	Список доступных групп.
 	Возвращает массив объектов с ключами id, name.
 	
-/api.php?api=3&query=latest&group=%group_id%
-	Расписание для группы (%group_id%) на несколько дней (сейчас 2, возможно может стать больше).
+/api.php?api=3&query=latest&group=%group_id%&days=%days_count%
+	Расписание для группы (%group_id%) на несколько дней (%days_count% - сколько вам надо максимум дней,
+	чтобы лишний раз не нагружать мой сервер, по умолчанию 2).
 	Возвращает ошибку (ключ error), если она есть.
 	Название группы (group).
 	Ссылку на расписание недели последнего дня (link).
@@ -40,14 +41,14 @@ API v.3 (the biggest thing happen to API since API)
 						number: 1,
 						time: '8:10-9:30',
 						title: 'English (307[3])\nTeacher E.S.',
-						style: ???,
+						style: 'text-decoration:underline;background-color:#FFFF99;',
 						with: 'BI-09-2, E-09-5',
 					},
 					{
 						number: 2,
 						time: '9:40-11:00',
 						title: 'English (307[3])\nTeacher E.S.',
-						style: ???,
+						style: '',
 						with: '',
 					},
 					...
@@ -55,3 +56,29 @@ API v.3 (the biggest thing happen to API since API)
 			},
 			...
 		]
+    Style вычесляется такой функцией:
+		function styleToCSS(&$style) {
+			$css = array();
+			$font = $style->getFont();
+			//$css['font-weight'] = $font->getBold() ? 'bold' : 'normal';
+			$css['font-style'] = $font->getItalic() ? 'italic' : 'normal';
+			$css['text-decoration'] = $font->getUnderline() != 'none' ? 'underline' : 'none';
+			$css['color'] = '#'.$font->getColor()->getRGB();
+			$fill = $style->getFill();
+			if ($fill->getFillType() != 'none')
+				$css['background-color'] = '#'.$fill->getStartColor()->getRGB();
+
+			$normalCss = array(
+				'font-weight' => 'normal',
+				'font-style' => 'normal',
+				'text-decoration' => 'none',
+				'color' => '#000000',
+			);
+
+			$diffCss = array_diff_assoc($css, $normalCss);
+
+			$cssString = '';
+			foreach ($diffCss as $key => $value)
+				$cssString .= "$key:$value;";
+			return $cssString;
+		}

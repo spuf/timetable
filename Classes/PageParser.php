@@ -37,7 +37,7 @@ class PageParser {
 				}
 			}
 		}
-		//Debug::Log($this->array);
+		//Debug::Log('Parsed page', $this->array);
 		return $this->array;
 	}
 

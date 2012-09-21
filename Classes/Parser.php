@@ -25,10 +25,10 @@ class Parser
 
 		$this->objPHPExcel = $this->objReader->load($inputFileName);
 
-		Debug::Log("File <b>".pathinfo($inputFileName, PATHINFO_BASENAME)."</b> is <b>$inputFileType</b> type,
-			contains <b>{$this->objPHPExcel->getSheetCount()}</b> worksheet".
-			(($this->objPHPExcel->getSheetCount() == 1) ? '' : 's').":");
-		Debug::Log($this->objPHPExcel->getSheetNames());
+		Debug::Log("Filename: ".pathinfo($inputFileName, PATHINFO_BASENAME).
+			", Type: $inputFileType, Worksheets: {$this->objPHPExcel->getSheetCount()}",
+			$this->objPHPExcel->getSheetNames()
+		);
 		return $this->objPHPExcel->getSheetNames();
 	}
 
@@ -117,7 +117,6 @@ class Parser
 		$timetable = array();
 		foreach ($this->objPHPExcel->getAllSheets() as $objSheet) {
 			$timetable = array_merge($timetable, $this->SheetToTimetableArray($objSheet));
-			//Debug::Log('<hr>');
 		}
 		return $timetable;
 	}
@@ -155,7 +154,7 @@ class Parser
 					
 					$info = array(
 						'time' => $pair['time'],
-						'title' => str_replace("\n\n", "\n", str_replace("\r", '', trim($text))),
+						'title' => preg_replace("/\s+\n+/", "\n", str_replace("\r", "", trim($text))),
 					);
 					
 					if (!empty($info['title'])) {
@@ -205,7 +204,7 @@ class Parser
 				$max = $sum;
 			}
 		}
-		//Debug::Log("Found groups row: $groupsRow");
+		//Debug::Log("Found groups row", $groupsRow);
 
 		return $groupsRow;
 	}
@@ -219,7 +218,7 @@ class Parser
 				$groups[$col] = $text;
 			}
 		}
-		//Debug::Log($groups);
+		//Debug::Log('Groups list', $groups);
 
 		return $groups;
 	}
@@ -228,7 +227,7 @@ class Parser
 		if (preg_match('/^\s*(?<dow>\S+).+(?<date>\d{2}\.\d{2}\.\d{4})\s*$/us', $text, $matches)) {
 			if (preg_match('/(?<d>\d{2})\.(?<m>\d{2})\.(?<y>\d{4})/', $matches['date'], $date)) {
 				$date = $date['y'] .'-'. $date['m'] .'-'. $date['d'];
-				//Debug::Log("Found date: $date");
+				//Debug::Log("Found date", $date);
 				$day = array(
 					'date' => $date,
 					'dow' => $matches['dow'],

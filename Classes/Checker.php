@@ -12,8 +12,8 @@ class Checker {
 		$this->saver = new SQLSaver();
 	}
 
-	function CheckPage() {
-		if (Storage::Get('LastCheck', 0) + 60*15 < time()) {
+	function CheckPage($force = false) {
+		if (Storage::Get('LastCheck', 0) + 60*15 < time() || $force) {
 			Storage::Set('LastCheck', time());
 
 			if ($this->page->Load('http://www.hse.perm.ru/student/timetable/')) {
@@ -34,8 +34,8 @@ class Checker {
 		}
 	}
 
-	function CheckFiles() {
-		if (Storage::Get('LastQueue', 0) + 60 < time()) {
+	function CheckFiles($force = false) {
+		if (Storage::Get('LastQueue', 0) + 60 < time() || $force) {
 			Storage::Set('LastQueue', time());
 
 			$links = DB::Query('SELECT ID, Link FROM Files WHERE Parsed = 0 ORDER BY ID LIMIT 1');

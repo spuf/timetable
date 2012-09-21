@@ -4,13 +4,15 @@ require_once 'bootstrap.php';
 
 $checker = new Checker();
 
-function Check() {
+function Check($force = false) {
 	global $checker;
-	$checker->CheckPage();
-	$checker->CheckFiles();
+	$checker->CheckPage($force);
+	$checker->CheckFiles($force);
 }
 
 if (!empty($_SERVER['REQUEST_URI'])) {
+	Check(true);
+	print 1;
 	die("Run by request is forbidden!");
 }
 

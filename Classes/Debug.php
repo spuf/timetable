@@ -13,12 +13,13 @@ class Debug {
 			return "($usage mb / $peak mb)";
 	}
 
-	static function Log($msg) {
-		if (is_string($msg))	{
-			print "<p>$msg</p>";
-		} else {
-			print "<pre>".print_r($msg, true)."</pre>";
-		}
+	static function Log($msg, $var = null) {
+		print "<p>$msg<br><pre>".print_r($var, true)."</pre><p>";
+		DB::Query('INSERT INTO Log (`Time`, Message, Variable) VALUES (:time, :message, :variable)', array(
+			':time' => date(DB::DATETIME),
+			':message' => $msg,
+			':variable' => serialize($var),
+		));
 	}
 
 }
