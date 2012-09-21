@@ -4,7 +4,7 @@ include_once 'bootstrap.php';
 
 $groupId = isset($_COOKIE['group']) ? $_COOKIE['group'] : -1;
 $groupId = isset($_GET['group']) ? $_GET['group'] : $groupId;
-setcookie('group', $groupId, time() + 60*60*7*3);
+setcookie('group', $groupId, time() + 60*60*24*7*3);
 
 ?>
 <!DOCTYPE html>
@@ -24,17 +24,13 @@ setcookie('group', $groupId, time() + 60*60*7*3);
 <body>
 <div class="container">
 
-<h1>Объявление</h1>
-<p>
-    Скоро будет ок дизайн.
-</p>
+<h1>Расписание ВШЭ (ПФ)</h1>
 
-<h2>Расписание</h2>
 <?php
 
 $lastCheck = Storage::Get('LastCheck', 0);
 $lastCheck = $lastCheck > 0 ? date('H:i d.m.Y', $lastCheck) : 'Never';
-print "<p>Последняя проверка новых файлов с расписанием: $lastCheck</p>";
+print "<p>Последняя проверка новых файлов с расписанием была в $lastCheck.</p>";
 
 $groups = '';
 $data = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
@@ -83,13 +79,12 @@ if (count($timetable) > 0) {
 		if ($date != $pair['Date']) {
 			$date = $pair['Date'];
 			if (!is_null($date))
-				print "</table></td></tr></table>";
-			print "<table><caption>({$pair['FileName']} от {$pair['FileDate']})</caption><tr valign='middle'><td align='center' width='100'>{$pair['Date']}<br>{$pair['Dow']}</td><td>";
-			print "<table border=1>";
+				print "</table>";
+			print "<table border=1><caption>{$pair['Dow']} ({$pair['Date']})</caption>";
 		}
 		print "<tr valign='middle'><td align='center' width='80'>{$pair['Number']}<br><small>{$pair['Time']}</small></td><td width='300'><div style='{$pair['Style']}'>{$title}</div><small>{$pair['With']}</small></td></tr>";
 	}
-	print "</table></td></tr></table>";
+	print "</table>";
 
 } else {
 	print "<p>Ничего</p>";
