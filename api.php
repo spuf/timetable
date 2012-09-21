@@ -1,7 +1,6 @@
 <?php
 
 include_once 'bootstrap.php';
-header('Content-type: text/plain; charset=utf-8');
 
 $api_ver = isset($_GET['api']) ? intval($_GET['api']) : 1; // legacy
 
@@ -20,7 +19,10 @@ switch ($api_ver) {
 }
 
 if (version_compare(PHP_VERSION, '5.3.3') >= 0)
-	$data = json_encode($data, JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+	if (isset($_GET['pretty']))
+		$data = json_encode($data, JSON_NUMERIC_CHECK | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+	else
+		$data = json_encode($data, JSON_NUMERIC_CHECK);
 else
 	$data = json_encode($data);
 
@@ -183,14 +185,15 @@ function api_3($data) {
 				));
 
 				$date = null;
-				$days = 0;
+				$day = -1;
 				for($i = 0; $i < count($sql); $i++) {
 					$pair = $sql[$i];
-					if (!isset($timetable[$pair['Date']])) {
-						$days += 1;
-						if ($days > $daysCount)
+					if ($date != $pair['Date']) {
+						$date = $pair['Date'];
+						$day += 1;
+						if ($day > $daysCount)
 							break;
-						$timetable[$days-1] = array(
+						$timetable[$day] = array(
 							'date' => $pair['Date'],
 							'dow' => $pair['Dow'],
 							'pairs' => array(),
@@ -198,7 +201,7 @@ function api_3($data) {
 					}
 					if (empty($pair['With']))
 						$pair['With'] = '';
-					$timetable[$days-1]['pairs'][] = array(
+					$timetable[$day]['pairs'][] = array(
 						'number' => $pair['Number'],
 						'time' => $pair['Time'],
 						'title' => $pair['Title'],
@@ -210,7 +213,7 @@ function api_3($data) {
 			} else {
 				$data['error'] = 'Группа не найдена в базе или количество дней меньше 1.';
 			}
-			$data['checksum'] = $checksum;
+			$data['checksum'] = '[spuf.ru]:'.md5($checksum);
 			$data['timetable'] = $timetable;
 			break;
 		default:
