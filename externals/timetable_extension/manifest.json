@@ -1,0 +1,23 @@
+{
+	"name": "Расписание НИУ-ВШЭ Пермь",
+	"version": "1.0",
+	"manifest_version": 2,
+	"description": "Расширение для отображения расписание НИУ-ВШЭ Пермь.",
+	"browser_action": {
+		"default_title": "Расписание НИУ-ВШЭ Пермь",
+		"default_icon": "img/3.png",
+		"default_popup": "popup.htm"
+	},
+	"permissions": [
+		"http://timetable.spuf.ru/*"
+	],
+	"icons": {
+		"128": "img/2.png"
+	},
+	"options_page": "options.htm",
+	"background": {
+		"page": "background.htm"
+	},
+	"homepage_url": "http://timetable.spuf.ru/",
+	"offline_enabled": true
+}

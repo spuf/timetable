@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gadget>
+	<name>Расписание ВШЭ (ПФ)</name>
+	<version>1.0</version>
+	<author name="Арсений Разин">
+		<info url="timetable.spuf.ru" />
+	</author>
+	<hosts>
+		<host name="sidebar">
+			<base type="HTML" apiVersion="1.0.0" src="gadget.htm" />
+			<permissions>full</permissions>
+			<platform minPlatformVersion="0.3" />
+		</host>
+	</hosts>
+</gadget>

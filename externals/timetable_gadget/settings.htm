@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <style>
+        body {
+            width: 226px;
+            height: 100px;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            System.Gadget.onSettingsClosing = function (event) {
+                if (event.closeAction == event.Action.commit) {
+                    var id = parseInt($('#group').val());
+                    System.Gadget.Settings.writeString('group', id);
+                    event.cancel = false;
+                }
+            };
+            $.ajax({
+                url: 'http://timetable.spuf.ru/api.php',
+                data: {
+                    api: 2,
+                    query: 'groups'
+                },
+                dataType: 'jsonp',
+                crossDomain: true,
+                error: function() {
+                    $('#groups').text('Ошибка загрузки');
+                },
+                success: function(data) {
+                    var s = $('<select/>', {id: 'group'}).append($('<option/>', {value: 0, html: '&ndash; Выберите &ndash;'}));
+                    $.each(data.groups, function(i, group) {
+                        s.append($('<option/>', {value: group.id, text: group.name}));
+                    });
+                    s.val(System.Gadget.Settings.readString('group'));
+                    $('#groups').empty().text('Группа: ').append(s);
+                }
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div id="groups">Загрузка списка групп...</div>
+</body>
+</html>

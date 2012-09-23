@@ -1,0 +1,95 @@
+body {
+	width: 260px;
+	font-size: 11px;
+	font-family: Verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+}
+
+a {
+	color: #000;
+	outline: none;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+small {
+	font-size: 9px;
+}
+
+#header {
+	height: 20px;
+	color: #666;
+	margin-bottom: 4px;
+	clear: both;
+}
+
+#header div {
+	padding: 4px 10px;
+}
+
+.right {
+	text-align: right;
+}
+
+#info {
+	text-align: center;
+	color: #666;
+	font-size: 9px;
+}
+
+.day {
+	height: 18px;
+	line-height: 20px;
+	text-align: center;
+	color: #000;
+	background: #aaa;
+	border-radius: 4px 4px 0px 0px;
+}
+
+.day small {
+	color: #666;
+}
+
+table {
+	width: 100%;
+}
+
+table, tr, td {
+	padding: 0;
+	margin: 0;
+	border: none;
+	border-collapse: collapse;
+}
+
+.pairs {
+	border: 1px solid #aaa;
+	color: #333;
+	min-height: 20px;
+	margin-bottom: 4px;
+	background: #fff;
+	border-radius: 0px 0px 4px 4px;
+}
+
+.pairs:last-of-type {
+	margin-bottom: 0;
+}
+
+.pair td {
+	border-top: 1px solid #aaa;
+	padding: 2px;
+}
+
+.number {
+	width: 70px;
+	color: #000;
+	text-align: center;
+}
+
+.number small {
+	color: #666;
+}
