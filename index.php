@@ -41,7 +41,7 @@ if ($page == 'timetable') {
 	$active_now = $fileId == 'now' ? 'class="active"' : '';
 	$active_all = $fileId == 'all' ? 'class="active"' : '';
 	$sidebar = <<<HTML
-<div class="well sidebar-nav" data-spy="affix" data-offset-top="0">
+<div class="well sidebar-nav subnav">
 	<ul class="nav nav-list">
 		<li $active_now><a href="?page=timetable&file=now">На ближайшие 7 дней</a></li>
 		<li $active_all><a href="?page=timetable&file=all">На все грядущие дни</a></li>
@@ -169,7 +169,7 @@ HTML;
 	$lastCheck = Storage::Get('LastCheck', 0);
 	$lastCheck = $lastCheck > 0 ? date('H:i d.m.Y', $lastCheck) : 'Never';
 	$sidebar = <<<HTML
-<div class="well sidebar-nav" data-spy="affix" data-offset-top="0">
+<div class="well sidebar-nav subnav">
 	<ul class="nav nav-list">
 		<li>Последняя проверка новых файлов с расписанием была в $lastCheck.</li>
 	</ul>
@@ -189,7 +189,7 @@ HTML;
 	}
 } elseif ($page == 'apps') {
 	$sidebar = <<<HTML
-<div id="sidebar" class="well sidebar-nav" data-spy="affix" data-offset-top="0">
+<div id="sidebar" class="well sidebar-nav subnav">
 	<ul class="nav nav-list">
 		<li><a href="#gadget">Гаджет для Windows 7</a></li>
 		<li><a href="#android">Приложение для Android</a></li>
@@ -260,17 +260,60 @@ print <<<HTML
         .table td {
          	vertical-align: middle;
         }
-        .affix {
-			/*width: 268px;*/
-        }
-		@media (max-width: 767px) {
-		    .sidenav.affix {
-		        position: static;
-			}
-		}
         section {
 			padding-top: 30px;
 		}
+.subnav {
+  width: 228px;
+}
+.subnav.affix {
+  top: 60px;
+}
+.subnav.affix-bottom {
+  position: fixed;
+  top: auto;
+  bottom: 110px;
+}
+/* Responsive
+-------------------------------------------------- */
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+  .subnav {
+    width: 258px;
+  }
+}
+
+
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 980px) {
+  /* Adjust sidenav width */
+  .subnav {
+    width: 166px;
+  }
+  .subnav.affix {
+    top: 10px;
+  }
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+  /* Sidenav */
+  .subnav {
+    width: auto;
+    margin-bottom: 20px;
+  }
+  .subnav.affix {
+    position: static;
+    width: auto;
+    top: 0;
+  }
+}
+
     </style>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -279,7 +322,7 @@ print <<<HTML
     <![endif]-->
 </head>
 
-<body data-spy="scroll">
+<body data-spy="scroll" data-target=".subnav">
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
@@ -311,7 +354,19 @@ print <<<HTML
 
 <script src="assets/js/jquery-1.8.2.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
-
+<script>
+  $(function() {
+    var \$window = $(window);
+    $('.subnav').affix({
+      offset: {
+        top: function() {
+          return \$window.width() <= 980 ? 60 : 0;
+        },
+        bottom: 150
+      }
+    })
+  });
+</script>
 </body>
 </html>
 HTML;
