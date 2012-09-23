@@ -51,14 +51,20 @@ if ($page == 'timetable') {
 </div>
 HTML;
 
-	$groups = '';
 	$data = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
-	foreach ($data as $item) {
-		$selected = $groupId == $item['ID'] ? 'selected="selected"' : '';
-		$groups .= "<option value='{$item['ID']}' $selected>{$item['Title']}</option>";
-	}
-
-	$content = <<<HTML
+	if ($groupId == -1) {
+		$content = '<ul class="unstyled">';
+		foreach ($data as $item) {
+			$content .= "<li><a href='?page=timetable&file={$fileId}&group={$item['ID']}'>{$item['Title']}</a></li>";
+		}
+		$content .= '</ul>';
+	} else {
+		$groups = '';
+		foreach ($data as $item) {
+			$selected = $groupId == $item['ID'] ? 'selected="selected"' : '';
+			$groups .= "<option value='{$item['ID']}' $selected>{$item['Title']}</option>";
+		}
+		$content = <<<HTML
 <form action="?" method="get" class="form-inline">
 	<input type="hidden" name="page" value="timetable">
 	<input type="hidden" name="file" value="$fileId">
@@ -68,103 +74,103 @@ HTML;
 </form>
 HTML;
 
-	if ($fileId == 'now') {
-		$timetable = DB::Query("
-			SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-				(
-				SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
-				JOIN Groups wg ON wg.ID = w.GroupID
-				WHERE w.PairID = p.ID
-				) as `With`
-			FROM Pairs p
-				JOIN Times t ON t.ID = p.TimeID
-				JOIN Styles s ON s.ID = p.StyleID
-				JOIN Dates d ON d.ID = p.DateID
-				JOIN Files f ON f.ID = p.FileID
-			WHERE p.GroupID = :group
-				AND d.Date >= DATE(NOW())
-				AND d.Date <= DATE(NOW() + INTERVAL 6 DAY)
-				AND p.FileID = (
-					SELECT MAX(pi.FileID)
-					FROM Pairs pi
-						JOIN Dates di ON di.ID = pi.DateID
-					WHERE pi.GroupID = p.GroupID
-						AND pi.DateID = p.DateID
+		if ($fileId == 'now') {
+			$timetable = DB::Query("
+				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
+					(
+					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
+					JOIN Groups wg ON wg.ID = w.GroupID
+					WHERE w.PairID = p.ID
+					) as `With`
+				FROM Pairs p
+					JOIN Times t ON t.ID = p.TimeID
+					JOIN Styles s ON s.ID = p.StyleID
+					JOIN Dates d ON d.ID = p.DateID
+					JOIN Files f ON f.ID = p.FileID
+				WHERE p.GroupID = :group
+					AND d.Date >= DATE(NOW())
+					AND d.Date <= DATE(NOW() + INTERVAL 6 DAY)
+					AND p.FileID = (
+						SELECT MAX(pi.FileID)
+						FROM Pairs pi
+							JOIN Dates di ON di.ID = pi.DateID
+						WHERE pi.GroupID = p.GroupID
+							AND pi.DateID = p.DateID
+					)
+				ORDER BY d.Date, t.Number
+				", array(
+					':group' => $groupId,
 				)
-			ORDER BY d.Date, t.Number
-			", array(
-				':group' => $groupId,
-			)
-		);
-	} elseif ($fileId == 'all') {
-		$timetable = DB::Query("
-			SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-				(
-				SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
-				JOIN Groups wg ON wg.ID = w.GroupID
-				WHERE w.PairID = p.ID
-				) as `With`
-			FROM Pairs p
-				JOIN Times t ON t.ID = p.TimeID
-				JOIN Styles s ON s.ID = p.StyleID
-				JOIN Dates d ON d.ID = p.DateID
-				JOIN Files f ON f.ID = p.FileID
-			WHERE p.GroupID = :group
-				AND d.Date >= DATE(NOW())
-				AND p.FileID = (
-					SELECT MAX(pi.FileID)
-					FROM Pairs pi
-						JOIN Dates di ON di.ID = pi.DateID
-					WHERE pi.GroupID = p.GroupID
-						AND pi.DateID = p.DateID
+			);
+		} elseif ($fileId == 'all') {
+			$timetable = DB::Query("
+				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
+					(
+					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
+					JOIN Groups wg ON wg.ID = w.GroupID
+					WHERE w.PairID = p.ID
+					) as `With`
+				FROM Pairs p
+					JOIN Times t ON t.ID = p.TimeID
+					JOIN Styles s ON s.ID = p.StyleID
+					JOIN Dates d ON d.ID = p.DateID
+					JOIN Files f ON f.ID = p.FileID
+				WHERE p.GroupID = :group
+					AND d.Date >= DATE(NOW())
+					AND p.FileID = (
+						SELECT MAX(pi.FileID)
+						FROM Pairs pi
+							JOIN Dates di ON di.ID = pi.DateID
+						WHERE pi.GroupID = p.GroupID
+							AND pi.DateID = p.DateID
+					)
+				ORDER BY d.Date, t.Number
+				", array(
+					':group' => $groupId,
 				)
-			ORDER BY d.Date, t.Number
-			", array(
-				':group' => $groupId,
-			)
-		);
-	} else {
-		$timetable = DB::Query("
-			SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-				(
-				SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
-				JOIN Groups wg ON wg.ID = w.GroupID
-				WHERE w.PairID = p.ID
-				) as `With`
-			FROM Pairs p
-				JOIN Times t ON t.ID = p.TimeID
-				JOIN Styles s ON s.ID = p.StyleID
-				JOIN Dates d ON d.ID = p.DateID
-				JOIN Files f ON f.ID = p.FileID
-			WHERE p.GroupID = :group
-				AND p.FileID = :file
-			ORDER BY d.Date, t.Number
-			", array(
-				':group' => $groupId,
-				':file' => $fileId,
-			)
-		);
-	}
-
-	$date = null;
-	if (count($timetable) > 0) {
-		foreach ($timetable as $pair) {
-			$title = nl2br(htmlentities($pair['Title'], ENT_QUOTES, 'utf-8'));
-			if ($date != $pair['Date']) {
-				$date = $pair['Date'];
-				if (!is_null($date))
-					$content .= "</table>";
-				$content .= "<h4>{$pair['Dow']} ({$pair['Date']})</h4>";
-				$content .= "<table class='table table-nonfluid table-bordered table-condensed'>";
-			}
-			$content .= "<tr><td class='center' width='80'>{$pair['Number']}<br><small class='muted'>{$pair['Time']}</small></td><td width='300'><div style='{$pair['Style']}'>{$title}</div><small class='muted'>{$pair['With']}</small></td></tr>";
+			);
+		} else {
+			$timetable = DB::Query("
+				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
+					(
+					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
+					JOIN Groups wg ON wg.ID = w.GroupID
+					WHERE w.PairID = p.ID
+					) as `With`
+				FROM Pairs p
+					JOIN Times t ON t.ID = p.TimeID
+					JOIN Styles s ON s.ID = p.StyleID
+					JOIN Dates d ON d.ID = p.DateID
+					JOIN Files f ON f.ID = p.FileID
+				WHERE p.GroupID = :group
+					AND p.FileID = :file
+				ORDER BY d.Date, t.Number
+				", array(
+					':group' => $groupId,
+					':file' => $fileId,
+				)
+			);
 		}
-		$content .= "</table>";
 
-	} else {
-		$content .= "<p>Ничего</p>";
+		$date = null;
+		if (count($timetable) > 0) {
+			foreach ($timetable as $pair) {
+				$title = nl2br(htmlentities($pair['Title'], ENT_QUOTES, 'utf-8'));
+				if ($date != $pair['Date']) {
+					$date = $pair['Date'];
+					if (!is_null($date))
+						$content .= "</table>";
+					$content .= "<h4>{$pair['Dow']} ({$pair['Date']})</h4>";
+					$content .= "<table class='table table-nonfluid table-bordered table-condensed'>";
+				}
+				$content .= "<tr><td class='center' width='80'>{$pair['Number']}<br><small class='muted'>{$pair['Time']}</small></td><td width='300'><div style='{$pair['Style']}'>{$title}</div><small class='muted'>{$pair['With']}</small></td></tr>";
+			}
+			$content .= "</table>";
+
+		} else {
+			$content .= "<p>Ничего</p>";
+		}
 	}
-
 } elseif ($page == 'docs') {
 	$lastCheck = Storage::Get('LastCheck', 0);
 	$lastCheck = $lastCheck > 0 ? date('H:i d.m.Y', $lastCheck) : 'Never';
