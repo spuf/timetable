@@ -261,7 +261,7 @@ print <<<HTML
          	vertical-align: middle;
         }
         .affix {
-			width: 268px;
+			/*width: 268px;*/
         }
         section {
 			padding-top: 30px;
