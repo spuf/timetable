@@ -77,11 +77,11 @@ HTML;
 		if ($fileId == 'now') {
 			$timetable = DB::Query("
 				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-					(
+					CONCAT('Вместе с ', (
 					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
 					JOIN Groups wg ON wg.ID = w.GroupID
 					WHERE w.PairID = p.ID
-					) as `With`
+					)) as `With`
 				FROM Pairs p
 					JOIN Times t ON t.ID = p.TimeID
 					JOIN Styles s ON s.ID = p.StyleID
@@ -105,11 +105,11 @@ HTML;
 		} elseif ($fileId == 'all') {
 			$timetable = DB::Query("
 				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-					(
+					CONCAT('Вместе с ', (
 					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
 					JOIN Groups wg ON wg.ID = w.GroupID
 					WHERE w.PairID = p.ID
-					) as `With`
+					)) as `With`
 				FROM Pairs p
 					JOIN Times t ON t.ID = p.TimeID
 					JOIN Styles s ON s.ID = p.StyleID
@@ -132,11 +132,11 @@ HTML;
 		} else {
 			$timetable = DB::Query("
 				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-					(
+					CONCAT('Вместе с ', (
 					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
 					JOIN Groups wg ON wg.ID = w.GroupID
 					WHERE w.PairID = p.ID
-					) as `With`
+					)) as `With`
 				FROM Pairs p
 					JOIN Times t ON t.ID = p.TimeID
 					JOIN Styles s ON s.ID = p.StyleID
