@@ -9,7 +9,7 @@
 		<host name="sidebar">
 			<base type="HTML" apiVersion="1.0.0" src="gadget.htm" />
 			<permissions>full</permissions>
-			<platform minPlatformVersion="0.3" />
+			<platform minPlatformVersion="1.0" />
 		</host>
 	</hosts>
 </gadget>

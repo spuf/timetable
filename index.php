@@ -12,6 +12,7 @@ $navigation = <<<HTML
 <ul class="nav">
 	<li {active_timetable}><a href="?page=timetable">Расписание</a></li>
 	<li {active_docs}><a href="?page=docs">Документы</a></li>
+	<li {active_apps}><a href="?page=apps">Приложения</a></li>
 </ul>
 HTML;
 
@@ -40,7 +41,7 @@ if ($page == 'timetable') {
 	$active_now = $fileId == 'now' ? 'class="active"' : '';
 	$active_all = $fileId == 'all' ? 'class="active"' : '';
 	$sidebar = <<<HTML
-<div class="well sidebar-nav">
+<div class="well sidebar-nav" data-spy="affix" data-offset-top="0">
 	<ul class="nav nav-list">
 		<li $active_now><a href="?page=timetable&file=now">На ближайшие 7 дней</a></li>
 		<li $active_all><a href="?page=timetable&file=all">На все грядущие дни</a></li>
@@ -167,7 +168,13 @@ HTML;
 } elseif ($page == 'docs') {
 	$lastCheck = Storage::Get('LastCheck', 0);
 	$lastCheck = $lastCheck > 0 ? date('H:i d.m.Y', $lastCheck) : 'Never';
-	$sidebar = "<div class='well'>Последняя проверка новых файлов с расписанием была в $lastCheck.</div>";
+	$sidebar = <<<HTML
+<div class="well sidebar-nav" data-spy="affix" data-offset-top="0">
+	<ul class="nav nav-list">
+		<li>Последняя проверка новых файлов с расписанием была в $lastCheck.</li>
+	</ul>
+</div>
+HTML;
 
 	$docs = Storage::Get('Cache', array());
 	$content = '';
@@ -180,6 +187,51 @@ HTML;
 			$content .= "</ul>";
 		}
 	}
+} elseif ($page == 'apps') {
+	$sidebar = <<<HTML
+<div id="sidebar" class="well sidebar-nav" data-spy="affix" data-offset-top="0">
+	<ul class="nav nav-list">
+		<li><a href="#gadget">Гаджет для Windows 7</a></li>
+		<li><a href="#android">Приложение для Android</a></li>
+		<li><a href="#chrome">Расширение для Chrome</a></li>
+	</ul>
+</div>
+HTML;
+
+	$docs = Storage::Get('Cache', array());
+	$content = <<<HTML
+<section id="gadget">
+<h4>Гаджет для Windows 7</h4>
+<p><img src="externals/gadget.png" class="img-polaroid" alt="gadget"></p>
+<p>
+Microsoft с июля 2012 года отключила установку сторонних гаджетов:
+<a href="http://windows.microsoft.com/ru-RU/windows/downloads/personalize/gadgets" target="_blank" rel='nofollow'>http://windows.microsoft.com/ru-RU/windows/downloads/personalize/gadgets</a>.<br>
+Но гаджет можно установить: скачайте архив и распакуйте его в папку <code>C:\Program Files\Windows Sidebar\Gadgets</code>, затем правый клик на рабочем столе и "Гаджеты".
+</p>
+<p>
+Скачать: <a href="externals/timetable_gadget.zip">timetable_gadget.zip</a>
+</p>
+</section>
+
+<section id="android">
+<h4>Приложение для Android</h4>
+<p>
+<a href="https://play.google.com/store/apps/details?id=ru.spuf.timetable" target="_blank">Перейти на Google Play</a>
+</p>
+</section>
+
+<section id="chrome">
+<h4>Расширение для Chrome</h4>
+<p><img src="externals/extension.png" class="img-polaroid" alt="extension"></p>
+<p>
+Чтобы установить расширение
+</p>
+<p>
+Скачать: <a href="externals/timetable_extension.crx">timetable_extension.crx</a>
+</p>
+</section>
+HTML;
+
 }
 
 print <<<HTML
@@ -208,6 +260,12 @@ print <<<HTML
         .table td {
          	vertical-align: middle;
         }
+        .affix {
+			width: 268px;
+        }
+        section {
+			padding-top: 30px;
+		}
     </style>
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 
@@ -216,7 +274,7 @@ print <<<HTML
     <![endif]-->
 </head>
 
-<body>
+<body data-spy="scroll">
 
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
