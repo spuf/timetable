@@ -216,7 +216,7 @@ HTML;
 	<p>
 		Microsoft с июля 2012 года отключила установку сторонних гаджетов:
 		<a href="http://windows.microsoft.com/ru-RU/windows/downloads/personalize/gadgets" target="_blank" rel='nofollow'>http://windows.microsoft.com/ru-RU/windows/downloads/personalize/gadgets</a>.<br>
-		Но гаджет можно установить: скачайте архив и распакуйте его в папку <code>C:\Program Files\Windows Sidebar\Gadgets</code>, затем правый клик на рабочем столе и "Гаджеты".
+		Но гаджет можно установить: скачайте архив и распакуйте его в папку <code>C:\Program Files\Windows Sidebar\Gadgets</code>, затем правый клик на рабочем столе и открывайте <strong>Гаджеты</strong>.
 	</p>
 	<p>
 		Скачать: <a href="externals/timetable_gadget.zip">timetable_gadget.zip</a>
@@ -235,7 +235,8 @@ HTML;
 	<h4>Расширение для Chrome</h4>
 	<p><img src="externals/extension.png" class="img-polaroid" alt="extScreenshotension"></p>
 	<p>
-		Чтобы установить расширение
+		Чтобы установить расширение: скачайте файл с раширением <strong>.crx</strong>, откройте вкладку с адресом <code>chrome://chrome/extensions/</code>
+		и перетащите файл во вкладку.
 	</p>
 	<p>
 		Скачать: <a href="externals/timetable_extension.crx">timetable_extension.crx</a>
