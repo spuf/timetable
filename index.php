@@ -178,14 +178,18 @@ HTML;
 
 	$docs = Storage::Get('Cache', array());
 	$content = '';
-	foreach ($docs as $category => $files) {
-		if (count($files) > 0) {
-			$content .= "<h4>$category</h4><ul>";
-			foreach ($files as $file) {
-				$content .= "<li><a href='http://www.hse.perm.ru{$file['link']}' rel='nofollow'>{$file['name']}</a> от {$file['date']}</li>";
+	if (count($docs) > 0) {
+		foreach ($docs as $category => $files) {
+			if (count($files) > 0) {
+				$content .= "<h4>$category</h4><ul>";
+				foreach ($files as $file) {
+					$content .= "<li><a href='http://www.hse.perm.ru{$file['link']}' rel='nofollow'>{$file['name']}</a> от {$file['date']}</li>";
+				}
+				$content .= "</ul>";
 			}
-			$content .= "</ul>";
 		}
+	} else {
+		$content .= "<p>Ничего</p>";
 	}
 } elseif ($page == 'apps') {
 	$sidebar = <<<HTML
