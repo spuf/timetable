@@ -43,7 +43,7 @@ if ($page == 'timetable') {
 <div class="well sidebar-nav">
 	<ul class="nav nav-list">
 		<li $active_now><a href="?page=timetable&file=now">На ближайшие 7 дней</a></li>
-		<li $active_all><a href="?page=timetable&file=all">На все грядущии дни</a></li>
+		<li $active_all><a href="?page=timetable&file=all">На все грядущие дни</a></li>
 		<li class="divider"></li>
 		{$items}
 	</ul>
