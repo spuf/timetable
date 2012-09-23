@@ -14,6 +14,15 @@ setcookie('group', $groupId, time() + 60*60*24*7*3);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
     <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script>
+        $(document).bind("mobileinit", function(){
+            $.extend($.mobile, {
+                ajaxEnabled : false,
+                ajaxFormsEnabled : false,
+                ajaxLinksEnabled : false
+        	});
+        });
+    </script>
     <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
     <style type='text/css'>
         @media only screen and (min-width: 600px) {
@@ -60,6 +69,7 @@ $timetable = DB::Query("
 		JOIN Files f ON f.ID = p.FileID
 	WHERE p.GroupID = :group
 		AND d.Date >= DATE(NOW())
+		AND d.Date <= DATE(NOW() + INTERVAL 6 DAY)
 		AND p.FileID = (
 			SELECT MAX(pi.FileID)
 			FROM Pairs pi
@@ -93,17 +103,10 @@ if (count($timetable) > 0) {
 
 ?>
         </div>
-
-        <div class="content-secondary">
-			<h2>Ссылочки</h2>
-			<ul data-role="listview" data-inset="true">
-				<li><a href="http://timetable-spuf.dotcloud.com/">Старый сайт</a></li>
-			</ul>
-    	</div>
     </div>
 
     <div data-role="footer">
-        <h4><a href="http://spuf.ru/" title="Арсений Разин" data-role="button">Сделал spuf.ru</a></h4>
+        <h4><a href="index.php" data-role="button" data-transition="none">Полная версия</a></h4>
     </div>
 </div>
 
@@ -128,7 +131,7 @@ foreach ($data as $item) {
     </div>
 
     <div data-role="footer">
-        <h4><a href="http://spuf.ru/" title="Арсений Разин" data-role="button" data-transition="none">Сделал spuf.ru</a></h4>
+        <h4><a href="index.php" data-role="button" data-transition="none">Полная версия</a></h4>
     </div>
 </div>
 
