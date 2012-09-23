@@ -60,11 +60,11 @@ HTML;
 
 	$content = <<<HTML
 <form action="?" method="get" class="form-inline">
-<input type="hidden" name="page" value="timetable">
-<input type="hidden" name="file" value="$fileId">
-<label for="group">Группа:</label>
-<select name="group" onchange="this.form.submit();"><option value="-1"></option>$groups</select>
-<noscript><button type="submit" class="btn">Показать</button></noscript>
+	<input type="hidden" name="page" value="timetable">
+	<input type="hidden" name="file" value="$fileId">
+	<label for="group">Группа:</label>
+	<select name="group" onchange="this.form.submit();"><option value="-1"></option>$groups</select>
+	<noscript><button type="submit" class="btn">Показать</button></noscript>
 </form>
 HTML;
 
@@ -205,35 +205,35 @@ HTML;
 	$docs = Storage::Get('Cache', array());
 	$content = <<<HTML
 <section id="gadget">
-<h4>Гаджет для Windows 7</h4>
-<p><img src="externals/gadget.png" class="img-polaroid" alt="Screenshot"></p>
-<p>
-Microsoft с июля 2012 года отключила установку сторонних гаджетов:
-<a href="http://windows.microsoft.com/ru-RU/windows/downloads/personalize/gadgets" target="_blank" rel='nofollow'>http://windows.microsoft.com/ru-RU/windows/downloads/personalize/gadgets</a>.<br>
-Но гаджет можно установить: скачайте архив и распакуйте его в папку <code>C:\Program Files\Windows Sidebar\Gadgets</code>, затем правый клик на рабочем столе и "Гаджеты".
-</p>
-<p>
-Скачать: <a href="externals/timetable_gadget.zip">timetable_gadget.zip</a>
-</p>
+	<h4>Гаджет для Windows 7</h4>
+	<p><img src="externals/gadget.png" class="img-polaroid" alt="Screenshot"></p>
+	<p>
+		Microsoft с июля 2012 года отключила установку сторонних гаджетов:
+		<a href="http://windows.microsoft.com/ru-RU/windows/downloads/personalize/gadgets" target="_blank" rel='nofollow'>http://windows.microsoft.com/ru-RU/windows/downloads/personalize/gadgets</a>.<br>
+		Но гаджет можно установить: скачайте архив и распакуйте его в папку <code>C:\Program Files\Windows Sidebar\Gadgets</code>, затем правый клик на рабочем столе и "Гаджеты".
+	</p>
+	<p>
+		Скачать: <a href="externals/timetable_gadget.zip">timetable_gadget.zip</a>
+	</p>
 </section>
 
 <section id="android">
-<h4>Приложение для Android</h4>
-<p><img src="externals/android.png" class="img-polaroid" alt="Screenshot"></p>
-<p>
-<a href="https://play.google.com/store/apps/details?id=ru.spuf.timetable" target="_blank">Перейти на Google Play</a>
-</p>
+	<h4>Приложение для Android</h4>
+	<p><img src="externals/android.png" class="img-polaroid" alt="Screenshot"></p>
+	<p>
+		<a href="https://play.google.com/store/apps/details?id=ru.spuf.timetable" target="_blank">Посмотреть в Google Play</a>
+	</p>
 </section>
 
 <section id="chrome">
-<h4>Расширение для Chrome</h4>
-<p><img src="externals/extension.png" class="img-polaroid" alt="extScreenshotension"></p>
-<p>
-Чтобы установить расширение
-</p>
-<p>
-Скачать: <a href="externals/timetable_extension.crx">timetable_extension.crx</a>
-</p>
+	<h4>Расширение для Chrome</h4>
+	<p><img src="externals/extension.png" class="img-polaroid" alt="extScreenshotension"></p>
+	<p>
+		Чтобы установить расширение
+	</p>
+	<p>
+		Скачать: <a href="externals/timetable_extension.crx">timetable_extension.crx</a>
+	</p>
 </section>
 HTML;
 
@@ -243,134 +243,63 @@ print <<<HTML
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="utf-8">
-    <title>Расписание ВШЭ (ПФ)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>Расписание ВШЭ (ПФ)</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link href="assets/css/bootstrap.css" rel="stylesheet">
-    <style type="text/css">
-        body {
-            padding-top: 60px;
-            padding-bottom: 40px;
-        }
-        .sidebar-nav {
-            padding: 9px 0;
-        }
-        .table-nonfluid {
-		   width: auto;
-		}
-        .center {
-        	text-align: center !important;
-        }
-        .table td {
-         	vertical-align: middle;
-        }
-        section {
-			padding-top: 30px;
-		}
-.subnav {
-  width: 228px;
-}
-.subnav.affix {
-  top: 60px;
-}
-.subnav.affix-bottom {
-  position: fixed;
-  top: auto;
-  bottom: 110px;
-}
-/* Responsive
--------------------------------------------------- */
+	<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="styles.css" rel="stylesheet">
 
-/* Desktop large
-------------------------- */
-@media (min-width: 1200px) {
-  .subnav {
-    width: 258px;
-  }
-}
-
-
-
-/* Tablet to desktop
-------------------------- */
-@media (min-width: 768px) and (max-width: 980px) {
-  /* Adjust sidenav width */
-  .subnav {
-    width: 166px;
-  }
-  .subnav.affix {
-    top: 10px;
-  }
-}
-
-/* Tablet
-------------------------- */
-@media (max-width: 767px) {
-  /* Sidenav */
-  .subnav {
-    width: auto;
-    margin-bottom: 20px;
-  }
-  .subnav.affix {
-    position: static;
-    width: auto;
-    top: 0;
-  }
-}
-
-    </style>
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
-
-    <!--[if lt IE 9]>
+	<!--[if lt IE 9]>
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<![endif]-->
 </head>
 
 <body data-spy="scroll" data-target=".subnav">
 
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container-fluid">
-            <a class="brand" href="?">Расписание ВШЭ (ПФ)</a>
-            {$navigation}
-        </div>
-    </div>
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="brand" href="?">Расписание ВШЭ (ПФ)</a>
+			{$navigation}
+		</div>
+	</div>
 </div>
 
 <div class="container">
-    <div class="row">
-        <div class="span3">
+	<div class="row">
+		<div class="span3">
 			{$sidebar}
-        </div>
+		</div>
 
-        <div class="span9">
+		<div class="span9">
 			{$content}
-        </div>
-    </div>
+		</div>
+	</div>
 
-    <hr>
+	<hr>
 
-    <footer>
-        <p>&copy; <a href="http://spuf.ru/" title="Арсений Разин">spuf.ru</a></p>
-    </footer>
+	<footer>
+		<p>&copy; <a href="http://spuf.ru/" title="Арсений Разин">spuf.ru</a></p>
+	</footer>
 
 </div>
 
 <script src="assets/js/jquery-1.8.2.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script>
-  $(function() {
-    var \$window = $(window);
-    $('.subnav').affix({
-      offset: {
-        top: function() {
-          return \$window.width() <= 980 ? 60 : 0;
-        },
-        bottom: 150
-      }
-    });
-  });
+	$(function() {
+		var \$window = $(window);
+		$('.subnav').affix({
+			offset: {
+				top: function() {
+					return \$window.width() <= 980 ? 60 : 0;
+				},
+				bottom: 150
+			}
+		});
+	});
 </script>
 </body>
 </html>

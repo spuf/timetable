@@ -1,0 +1,76 @@
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+.sidebar-nav {
+	padding: 9px 0;
+}
+
+.table-nonfluid {
+	width: auto;
+}
+
+.center {
+	text-align: center !important;
+}
+
+.table td {
+	vertical-align: middle;
+}
+
+section {
+	padding-top: 30px;
+}
+
+.subnav {
+	width: 228px;
+}
+
+.subnav.affix {
+	top: 60px;
+}
+
+.subnav.affix-bottom {
+	position: fixed;
+	top: auto;
+	bottom: 110px;
+}
+
+/* Responsive
+-------------------------------------------------- */
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px) {
+	.subnav {
+		width: 258px;
+	}
+}
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 980px) {
+	/* Adjust sidenav width */
+	.subnav {
+		width: 166px;
+	}
+	.subnav.affix {
+		top: 10px;
+	}
+}
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px) {
+	/* Sidenav */
+	.subnav {
+		width: auto;
+		margin-bottom: 20px;
+	}
+	.subnav.affix {
+		position: static;
+		width: auto;
+		top: 0;
+	}
+}
