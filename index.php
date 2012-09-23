@@ -263,6 +263,11 @@ print <<<HTML
         .affix {
 			/*width: 268px;*/
         }
+		@media (max-width: 767px) {
+		    .sidenav.affix {
+		        position: static;
+			}
+		}
         section {
 			padding-top: 30px;
 		}
