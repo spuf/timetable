@@ -6,7 +6,7 @@ $checker = new Checker();
 
 function Check($force = false) {
 	global $checker;
-	$checker->CheckPage($force);
+	$checker->CheckPage($force || is_null(Storage::Get('Cache', null)));
 	$checker->CheckFiles($force);
 }
 
