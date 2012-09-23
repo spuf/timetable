@@ -351,7 +351,7 @@ print <<<HTML
     <hr>
 
     <footer>
-        <p>&copy; <a href="http://spuf.ru/" title="Арсений Разин">spuf.ru</a> | <a href="mobile.php">Мобильная версия</a></p>
+        <p>&copy; <a href="http://spuf.ru/" title="Арсений Разин">spuf.ru</a></p>
     </footer>
 
 </div>
@@ -368,7 +368,7 @@ print <<<HTML
         },
         bottom: 150
       }
-    })
+    });
   });
 </script>
 </body>
