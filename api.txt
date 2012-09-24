@@ -57,7 +57,7 @@ API v.3 (the biggest thing happen to API since API)
 			},
 			...
 		]
-    Style вычесляется такой функцией:
+    Style вычисляется такой функцией:
 		function styleToCSS(&$style) {
 			$css = array();
 			$font = $style->getFont();

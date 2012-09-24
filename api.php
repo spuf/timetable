@@ -19,12 +19,12 @@ switch ($api_ver) {
 }
 
 if (version_compare(PHP_VERSION, '5.3.3') >= 0)
-	if (isset($_GET['pretty']))
-		$data = prettyPrint(json_encode($data, JSON_NUMERIC_CHECK));
-	else
-		$data = json_encode($data, JSON_NUMERIC_CHECK);
+	$data = json_encode($data, JSON_NUMERIC_CHECK);
 else
 	$data = json_encode($data);
+
+if (isset($_GET['pretty']))
+	$data = prettyPrint($data);
 
 if (isset($_GET['callback'])) {
 	preg_match('/([a-z0-9_\-\$\.]+)/ui', $_GET['callback'], $callback);
@@ -58,7 +58,7 @@ function api_2($data) {
 			$groups = DB::Query('SELECT Title FROM Groups WHERE `ID` = '.$groupId.' ORDER BY Title');
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
 			$timetable = array();
-			$link = 'http://timetable.spuf.ru/';
+			$link = 'http://timetable.spuf.ru/?page=timetable&file=now&group='.$groupId;
 			
 			if ($data['group']) {
 				$sql = DB::Query("
@@ -150,7 +150,7 @@ function api_3($data) {
 			$daysCount = isset($_GET['days']) ? intval($_GET['days']) : 2;
 			$groups = DB::Query('SELECT Title FROM Groups WHERE `ID` = :id ORDER BY Title', array(':id' => $groupId));
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
-			$data['link'] = 'http://timetable.spuf.ru/?group='.$groupId;
+			$data['link'] = 'http://timetable.spuf.ru/?page=timetable&file=now&group='.$groupId;
 			$timetable = array();
 			$checksum = '[spuf.ru]:';
 
