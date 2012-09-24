@@ -3,7 +3,7 @@
 include_once 'bootstrap.php';
 
 $maxage = 60 * 15;
-header("Cache-Control: max-age=$maxage");
+header("Cache-Control: max-age=$maxage, public");
 header("Expires: " . gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time() + $maxage));
 
 $api_ver = isset($_GET['api']) ? intval($_GET['api']) : 1; // legacy
