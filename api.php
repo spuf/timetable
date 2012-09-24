@@ -2,6 +2,10 @@
 
 include_once 'bootstrap.php';
 
+$maxage = 60 * 15;
+header("Cache-Control: max-age=$maxage");
+header("Expires: " . gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time() + $maxage));
+
 $api_ver = isset($_GET['api']) ? intval($_GET['api']) : 1; // legacy
 
 $data = array();
@@ -29,8 +33,7 @@ if (isset($_GET['pretty']))
 if (isset($_GET['callback'])) {
 	preg_match('/([a-z0-9_\-\$\.]+)/ui', $_GET['callback'], $callback);
 	print $callback[1] . '(' . $data . ');';
-}
-else {
+} else {
 	print $data;
 }
 
