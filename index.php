@@ -221,6 +221,20 @@ print <<<HTML
 	</div>
 </div>
 
+<div class="modal hide fade" id="groupSelector" tabindex="-1" role="dialog">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>Выбор группы</h3>
+	</div>
+	<div class="modal-body">
+		{$groupSelector}
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal">Закрыть</button>
+		<!--<button class="btn btn-primary">Save changes</button>-->
+	</div>
+</div>
+
 <div class="container">
 	<div class="row">
 		<div class="span3">
@@ -238,20 +252,6 @@ print <<<HTML
 		<p>&copy; <a href="http://spuf.ru/" title="Арсений Разин">spuf.ru</a></p>
 	</footer>
 
-</div>
-
-<div class="modal hide fade" id="groupSelector" tabindex="-1" role="dialog">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h3>Выбор группы</h3>
-	</div>
-	<div class="modal-body">
-		{$groupSelector}
-	</div>
-	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Закрыть</button>
-		<!--<button class="btn btn-primary">Save changes</button>-->
-	</div>
 </div>
 
 <script src="assets/js/jquery-1.8.2.min.js"></script>
