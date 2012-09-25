@@ -6,6 +6,8 @@ $groupId = isset($_COOKIE['group']) ? $_COOKIE['group'] : -1;
 $groupId = isset($_GET['group']) ? $_GET['group'] : $groupId;
 setcookie('group', $groupId, time() + 60*60*24*7*3);
 
+$groups = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
+
 $page = isset($_GET['page']) ? $_GET['page'] : 'timetable';
 
 $navigation = <<<HTML
@@ -18,6 +20,16 @@ HTML;
 
 $navigation = str_replace("{active_$page}" ,'class="active"', $navigation);
 $navigation = preg_replace("/\s{active_\w+}/" ,'', $navigation);
+
+$groupRow = DB::Query('SELECT Title FROM Groups WHERE `ID` = :id ORDER BY Title', array(':id' => $groupId));
+$groupName = count($groupRow) > 0 ? $groupRow[0]['Title'] : 'Выберать группу';
+
+$link = empty($_SERVER['QUERY_STRING']) ? '' : $_SERVER['QUERY_STRING'].'&';
+$groupSelector = '<ul class="unstyled clearfix" style="list-style: none;">';
+foreach ($groups as $item) {
+	$groupSelector .= "<li style='float: left;width: 25%;line-height: 25px;'><a href='?{$link}group={$item['ID']}'>{$item['Title']}</a></li>";
+}
+$groupSelector .= '</ul>';
 
 $sidebar = '';
 $content = '';
@@ -44,25 +56,24 @@ if ($page == 'timetable') {
 </div>
 HTML;
 
-	$data = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
 	if ($groupId == -1) {
 		$content = '<ul class="unstyled">';
-		foreach ($data as $item) {
+		foreach ($groups as $item) {
 			$content .= "<li><a href='?page=timetable&file={$fileId}&group={$item['ID']}'>{$item['Title']}</a></li>";
 		}
 		$content .= '</ul>';
 	} else {
-		$groups = '';
-		foreach ($data as $item) {
+		$options = '';
+		foreach ($groups as $item) {
 			$selected = $groupId == $item['ID'] ? 'selected="selected"' : '';
-			$groups .= "<option value='{$item['ID']}' $selected>{$item['Title']}</option>";
+			$options .= "<option value='{$item['ID']}' $selected>{$item['Title']}</option>";
 		}
 		$content = <<<HTML
 <form action="?" method="get" class="form-inline">
 	<input type="hidden" name="page" value="timetable">
 	<input type="hidden" name="file" value="$fileId">
 	<label for="group">Группа:</label>
-	<select name="group" onchange="this.form.submit();"><option value="-1"></option>$groups</select>
+	<select name="group" onchange="this.form.submit();"><option value="-1"></option>$options</select>
 	<noscript><button type="submit" class="btn">Показать</button></noscript>
 </form>
 HTML;
@@ -202,7 +213,10 @@ print <<<HTML
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a class="brand" href="?">Расписание ВШЭ (ПФ)</a>
-			{$navigation}
+			<p class="navbar-text pull-right">
+            	<a href="#groupSelector" class="navbar-link group-link" data-toggle="modal">{$groupName}</a>
+            </p>
+            {$navigation}
 		</div>
 	</div>
 </div>
@@ -224,6 +238,20 @@ print <<<HTML
 		<p>&copy; <a href="http://spuf.ru/" title="Арсений Разин">spuf.ru</a></p>
 	</footer>
 
+</div>
+
+<div class="modal hide fade" id="groupSelector" tabindex="-1" role="dialog">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">×</button>
+		<h3>Выбор группы</h3>
+	</div>
+	<div class="modal-body">
+		{$groupSelector}
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal">Закрыть</button>
+		<!--<button class="btn btn-primary">Save changes</button>-->
+	</div>
 </div>
 
 <script src="assets/js/jquery-1.8.2.min.js"></script>

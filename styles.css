@@ -1,3 +1,13 @@
+* {
+	outline: none !important;
+}
+*:focus {
+	outline: none !important;
+}
+*:active {
+	outline: none !important;
+}
+
 body {
 	padding-top: 60px;
 	padding-bottom: 40px;
@@ -37,6 +47,15 @@ section {
 	bottom: 110px;
 }
 
+.group-link {
+	text-decoration: none;
+	border-bottom: 1px dashed #999;
+}
+.group-link:hover {
+	text-decoration: none;
+	border-bottom: 1px dashed white;
+}
+
 /* Responsive
 -------------------------------------------------- */
 
@@ -51,6 +70,9 @@ section {
 /* Tablet to desktop
 ------------------------- */
 @media (min-width: 768px) and (max-width: 980px) {
+	body {
+		padding-top: 0;
+	}
 	/* Adjust sidenav width */
 	.subnav {
 		width: 166px;
@@ -63,6 +85,9 @@ section {
 /* Tablet
 ------------------------- */
 @media (max-width: 767px) {
+	body {
+		padding-top: 0;
+	}
 	/* Sidenav */
 	.subnav {
 		width: auto;
