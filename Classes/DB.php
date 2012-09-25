@@ -20,11 +20,12 @@ class DB {
 		}
 	}
 
-	static function Query($sql, $params = array(), $fetch = true, &$id = null) {
+	static function Query($sql, $params = array(), $fetch = true, &$id = null, $log = true) {
 		try {
 			$sth = DB::$dbh->prepare($sql);
 			$sth->execute($params);
-			//Debug::Log('SQL query is', $sth->queryString);
+			//if ($log)
+			//	Debug::Log('SQL query is', $sth->queryString);
 			if ($fetch) {
 				return $sth->fetchAll(PDO::FETCH_ASSOC);
 			} else {

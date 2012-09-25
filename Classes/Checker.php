@@ -49,6 +49,7 @@ class Checker {
 				DB::Query('UPDATE Files SET Parsed = 1 WHERE ID = :id', array(
 					':id' => $links[0]['ID'],
 				), false);
+				Cache::Query(QueryLibrary::LatestFiles(), true);
 			}
 		}
 	}

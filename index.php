@@ -25,14 +25,7 @@ $content = '';
 if ($page == 'timetable') {
 	$fileId = isset($_GET['file']) ? $_GET['file'] : 'now';
 
-	$files = DB::Query('
-		SELECT f.ID, f.Title
-		FROM Files f
-		WHERE f.ID = (
-			SELECT MAX(i.ID) FROM Files i WHERE i.Parsed = 1 AND i.Title = f.Title
-		)
-		ORDER BY f.Title'
-	);
+	$files = Cache::Query(QueryLibrary::LatestFiles());
 	$items = '';
 	foreach ($files as $file) {
 		$active = $file['ID'] == $fileId ? 'class="active"' : '';
@@ -75,77 +68,17 @@ HTML;
 HTML;
 
 		if ($fileId == 'now') {
-			$timetable = DB::Query("
-				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-					CONCAT('Вместе с ', (
-					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
-					JOIN Groups wg ON wg.ID = w.GroupID
-					WHERE w.PairID = p.ID
-					)) as `With`
-				FROM Pairs p
-					JOIN Times t ON t.ID = p.TimeID
-					JOIN Styles s ON s.ID = p.StyleID
-					JOIN Dates d ON d.ID = p.DateID
-					JOIN Files f ON f.ID = p.FileID
-				WHERE p.GroupID = :group
-					AND d.Date >= DATE(NOW())
-					AND d.Date <= DATE(NOW() + INTERVAL 6 DAY)
-					AND p.FileID = (
-						SELECT MAX(pi.FileID)
-						FROM Pairs pi
-							JOIN Dates di ON di.ID = pi.DateID
-						WHERE pi.GroupID = p.GroupID
-							AND pi.DateID = p.DateID
-					)
-				ORDER BY d.Date, t.Number
-				", array(
+			$timetable = DB::Query(QueryLibrary::FewDays(6), array(
 					':group' => $groupId,
 				)
 			);
 		} elseif ($fileId == 'all') {
-			$timetable = DB::Query("
-				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-					CONCAT('Вместе с ', (
-					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
-					JOIN Groups wg ON wg.ID = w.GroupID
-					WHERE w.PairID = p.ID
-					)) as `With`
-				FROM Pairs p
-					JOIN Times t ON t.ID = p.TimeID
-					JOIN Styles s ON s.ID = p.StyleID
-					JOIN Dates d ON d.ID = p.DateID
-					JOIN Files f ON f.ID = p.FileID
-				WHERE p.GroupID = :group
-					AND d.Date >= DATE(NOW())
-					AND p.FileID = (
-						SELECT MAX(pi.FileID)
-						FROM Pairs pi
-							JOIN Dates di ON di.ID = pi.DateID
-						WHERE pi.GroupID = p.GroupID
-							AND pi.DateID = p.DateID
-					)
-				ORDER BY d.Date, t.Number
-				", array(
+			$timetable = DB::Query(QueryLibrary::AllDays(), array(
 					':group' => $groupId,
 				)
 			);
 		} else {
-			$timetable = DB::Query("
-				SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
-					CONCAT('Вместе с ', (
-					SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
-					JOIN Groups wg ON wg.ID = w.GroupID
-					WHERE w.PairID = p.ID
-					)) as `With`
-				FROM Pairs p
-					JOIN Times t ON t.ID = p.TimeID
-					JOIN Styles s ON s.ID = p.StyleID
-					JOIN Dates d ON d.ID = p.DateID
-					JOIN Files f ON f.ID = p.FileID
-				WHERE p.GroupID = :group
-					AND p.FileID = :file
-				ORDER BY d.Date, t.Number
-				", array(
+			$timetable = DB::Query(QueryLibrary::DaysForFile(), array(
 					':group' => $groupId,
 					':file' => $fileId,
 				)

@@ -15,11 +15,12 @@ class Debug {
 
 	static function Log($msg, $var = null) {
 		print "<p>$msg<br><pre>".print_r($var, true)."</pre><p>";
+		$temp = 0;
 		DB::Query('INSERT INTO Log (`Time`, Message, Variable) VALUES (:time, :message, :variable)', array(
 			':time' => date(DB::DATETIME),
 			':message' => $msg,
 			':variable' => serialize($var),
-		), false);
+		), false, $temp, false);
 	}
 
 }
