@@ -195,9 +195,10 @@ print <<<HTML
 <html lang="ru">
 <head>
 	<meta charset="utf-8">
-	<title>Расписание ВШЭ (ПФ)</title>
+	<title>Расписание ВШЭ Пермь</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+	<meta name="description" content="Расписание занятий Высшей школы экономики в Перми">
+	
 	<link href="assets/css/bootstrap.css" rel="stylesheet">
 	<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="styles.css" rel="stylesheet">
