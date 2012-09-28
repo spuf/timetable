@@ -22,7 +22,7 @@ $navigation = str_replace("{active_$page}" ,'class="active"', $navigation);
 $navigation = preg_replace("/\s{active_\w+}/" ,'', $navigation);
 
 $groupRow = DB::Query('SELECT Title FROM Groups WHERE `ID` = :id ORDER BY Title', array(':id' => $groupId));
-$groupName = count($groupRow) > 0 ? $groupRow[0]['Title'] : 'Выберать группу';
+$groupName = count($groupRow) > 0 ? $groupRow[0]['Title'] : 'Выбрать группу';
 
 $link = empty($_SERVER['QUERY_STRING']) ? '' : $_SERVER['QUERY_STRING'].'&';
 $groupSelector = '<ul class="unstyled clearfix" style="list-style: none;">';

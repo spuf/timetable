@@ -12,7 +12,6 @@ class QueryLibrary {
 			WHERE f.ID = (
 				SELECT MAX(pi.FileID)
 				FROM Pairs pi
-					JOIN Dates di ON di.ID = pi.DateID
 				WHERE pi.GroupID = p.GroupID
 					AND pi.DateID = p.DateID
 			)
