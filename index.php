@@ -15,6 +15,7 @@ $navigation = <<<HTML
 	<li {active_timetable}><a href="?page=timetable">Расписание</a></li>
 	<li {active_docs}><a href="?page=docs">Документы</a></li>
 	<li {active_apps}><a href="?page=apps">Приложения</a></li>
+	<li><a href="?page=teacher">Для преподавателей</a></li>
 </ul>
 HTML;
 
@@ -34,6 +35,10 @@ $groupSelector .= '</ul>';
 $sidebar = '';
 $content = '';
 
+if ($page == 'teacher') {
+	require_once 'teacher.php';
+	exit();
+} else
 if ($page == 'timetable') {
 	$fileId = isset($_GET['file']) ? $_GET['file'] : 'now';
 
