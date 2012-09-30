@@ -11,6 +11,7 @@ function Check($force = false) {
 }
 
 if (!empty($_SERVER['REQUEST_URI'])) {
+	//Check(true);
 	die("Run by request is forbidden!");
 }
 

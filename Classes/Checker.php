@@ -24,11 +24,17 @@ class Checker {
 				Storage::Set('Cache', $data);
 
 				foreach ($new as $item) {
-					DB::Query('INSERT INTO Files (Title, Date, Link, Parsed) VALUES (:title, :date, :link, 0)', array(
+					$count = DB::Query('SELECT ID FROM Files WHERE Title = :title AND Date = :date', array(
 						':title' => $item['name'],
 						':date' => date(DB::DATETIME, strtotime($item['date'])),
-						':link' => 'http://www.hse.perm.ru'.$item['link'],
-					), false);
+					));
+					if (empty($count)) {
+						DB::Query('INSERT INTO Files (Title, Date, Link, Parsed) VALUES (:title, :date, :link, 0)', array(
+							':title' => $item['name'],
+							':date' => date(DB::DATETIME, strtotime($item['date'])),
+							':link' => 'http://www.hse.perm.ru'.$item['link'],
+						), false);
+					}
 				}
 			}
 		}
@@ -38,17 +44,29 @@ class Checker {
 		if (Storage::Get('LastQueue', 0) + 60 < time() || $force) {
 			Storage::Set('LastQueue', time());
 
-			$links = DB::Query('SELECT ID, Link FROM Files WHERE Parsed = 0 ORDER BY ID LIMIT 1');
-			if (count($links) > 0) {
-				$this->parser->LoadFromURL($links[0]['Link']);
+			$rows = DB::Query('SELECT ID, Link, Title FROM Files WHERE Parsed = 0 ORDER BY ID LIMIT 1');
+			if (count($rows) > 0) {
+				$row = $rows[0];
+				$this->parser->LoadFromURL($row['Link']);
 				$timetable = $this->parser->ToTimetableArray();
 				$this->parser->UnloadExcel();
 
-				$this->saver->Save($timetable, $links[0]['ID']);
+				$this->saver->Save($timetable, $row['ID']);
 
 				DB::Query('UPDATE Files SET Parsed = 1 WHERE ID = :id', array(
-					':id' => $links[0]['ID'],
+					':id' => $row['ID'],
 				), false);
+
+				// clean up
+				DB::Query('DELETE FROM Files WHERE Title = :title AND ID < :id', array(
+					':title' => $row['Title'],
+					':id' => $row['ID'],
+				), false);
+				DB::Query('DELETE FROM Dates WHERE ID NOT IN (SELECT DISTINCT DateID FROM Pairs)', array(), false);
+				DB::Query('DELETE FROM Times WHERE ID NOT IN (SELECT DISTINCT TimeID FROM Pairs)', array(), false);
+				DB::Query('DELETE FROM Styles WHERE ID NOT IN (SELECT DISTINCT StyleID FROM Pairs)', array(), false);
+
+				// update cache
 				Cache::Query(QueryLibrary::LatestFiles(), true);
 			}
 		}
