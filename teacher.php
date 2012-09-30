@@ -7,6 +7,7 @@ $navigation = <<<HTML
 	<li><a href="/?page=timetable">Расписание</a></li>
 	<li><a href="/?page=docs">Документы</a></li>
 	<li><a href="/?page=apps">Приложения</a></li>
+	<li class="active"><a href="/?page=teacher">Для преподавателей</a></li>
 </ul>
 HTML;
 
