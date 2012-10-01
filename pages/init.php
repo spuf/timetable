@@ -8,8 +8,8 @@ $groups = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
 
 $navigation = <<<HTML
 <ul class="nav">
-	<li class="dropdown">
-		<a href="#" class="dropdown-toggle" data-toggle="dropdown">Расписание <b class="caret"></b></a>
+	<li class="dropdown {active_class_timetable} {active_class_teacher}">
+		<a href="?page=timetable" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Расписание <b class="caret"></b></a>
 		<ul class="dropdown-menu">
 			<li {active_timetable}><a href="?page=timetable">Студентов</a></li>
 			<li {active_teacher}><a href="?page=teacher">Перподавателей</a></li>
@@ -20,6 +20,7 @@ $navigation = <<<HTML
 </ul>
 HTML;
 
+$navigation = str_replace("{active_class_$page}" ,'active', $navigation);
 $navigation = str_replace("{active_$page}" ,'class="active"', $navigation);
 $navigation = preg_replace("/\s{active_\w+}/" ,'', $navigation);
 

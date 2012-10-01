@@ -155,6 +155,8 @@ class SQLSaver {
 					), false);
 				}
 			}
+		} else {
+			Debug::Log('no room', $title);
 		}
 	}
 
@@ -169,6 +171,8 @@ class SQLSaver {
 					), false);
 				}
 			}
+		} else {
+			Debug::Log('no teacher', $title);
 		}
 	}
 
