@@ -13,7 +13,8 @@ print <<<HTML
 	<title>Расписание ВШЭ Пермь</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Расписание занятий Высшей школы экономики в Перми">
-
+	<meta name="apple-itunes-app" content="app-id=566225461"/>
+	
 	<link href="assets/css/bootstrap.css" rel="stylesheet">
 	<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 	<link href="styles.css" rel="stylesheet">
