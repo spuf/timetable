@@ -8,11 +8,12 @@ $groups = DB::Query('SELECT ID, Title FROM Groups ORDER BY Title');
 
 $navigation = <<<HTML
 <ul class="nav">
-	<li class="dropdown {active_class_timetable} {active_class_teacher}">
+	<li class="dropdown {active_class_timetable} {active_class_teacher} {active_class_room}">
 		<a href="?page=timetable" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Расписание <b class="caret"></b></a>
 		<ul class="dropdown-menu">
 			<li {active_timetable}><a href="?page=timetable">Студентов</a></li>
 			<li {active_teacher}><a href="?page=teacher">Перподавателей</a></li>
+			<li {active_room}><a href="?page=room">Аудиторий</a></li>
 		</ul>
 	</li>
 	<li {active_docs}><a href="?page=docs">Документы</a></li>
