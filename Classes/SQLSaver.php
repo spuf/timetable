@@ -19,8 +19,10 @@ class SQLSaver {
 				$dateId = $this->GetDate($date, $day['dow']);
 				if (is_array($day['pairs'])) {
 					foreach ($day['pairs'] as $number => $pair) {
-						$this->ExtractRoom($pair['title']);
-						$this->ExtractTeacher($pair['title']);
+						if (!empty($pair['title'])) {
+							$this->ExtractRoom($pair['title']);
+							$this->ExtractTeacher($pair['title']);
+						}
 
 						if (empty($pair['style']))
 							$pair['style'] = '';
@@ -143,7 +145,7 @@ class SQLSaver {
 	}
 
 	function ExtractRoom($title) {
-		if (preg_match_all('/\((?<number>\d+)\[(?<building>\d+)\]\)/', $title, $matches, PREG_SET_ORDER)) {
+		if (preg_match_all('/\((?<number>\d+)\[(?<building>\d+)\]/', $title, $matches, PREG_SET_ORDER)) {
 			foreach ($matches as $match) {
 				if (DB::Query('SELECT * FROM Rooms WHERE Number = :number AND Building = :building', array(
 					':number' => $match['number'],
