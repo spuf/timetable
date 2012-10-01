@@ -6,16 +6,30 @@ $rooms = DB::Query('SELECT ID, Building, Number FROM Rooms ORDER BY Building, Nu
 
 if ($roomId == -1) {
 	$content = '<ul class="unstyled">';
+	$building = -1;
 	foreach ($rooms as $item) {
+		if ($building != $item['Building']) {
+			$building = $item['Building'];
+			$content .= "<li class='nav-header'>Корпус {$item['Building']}</li>";
+		}
 		$content .= "<li><a href='?page=room&room={$item['ID']}'>{$item['Number']}[{$item['Building']}]</a></li>";
 	}
 	$content .= '</ul>';
 } else {
 	$options = '';
+	$building = -1;
 	foreach ($rooms as $item) {
+		if ($building != $item['Building']) {
+			if ($building != -1)
+				$options .= "</optgroup>";
+			$building = $item['Building'];
+			$options .= "<optgroup label='Корпус {$item['Building']}'>";
+		}
 		$selected = $roomId == $item['ID'] ? 'selected="selected"' : '';
 		$options .= "<option value='{$item['ID']}' $selected>{$item['Number']}[{$item['Building']}]</option>";
 	}
+	$options .= "</optgroup>";
+
 	$content = <<<HTML
 <form action="?" method="get" class="form-inline">
 	<input type="hidden" name="page" value="room">
