@@ -12,7 +12,7 @@ $navigation = <<<HTML
 		<a href="?page=timetable" class="dropdown-toggle" data-toggle="dropdown" data-target="#">Расписание <b class="caret"></b></a>
 		<ul class="dropdown-menu">
 			<li {active_timetable}><a href="?page=timetable">Студентов</a></li>
-			<li {active_teacher}><a href="?page=teacher">Перподавателей</a></li>
+			<li {active_teacher}><a href="?page=teacher">Преподавателей</a></li>
 			<li {active_room}><a href="?page=room">Аудиторий</a></li>
 		</ul>
 	</li>
