@@ -145,7 +145,7 @@ class SQLSaver {
 	}
 
 	function ExtractRoom($title) {
-		if (preg_match_all('/\((?<number>\d+)\[(?<building>\d+)\]/', $title, $matches, PREG_SET_ORDER)) {
+		if (preg_match_all('/\((?<number>\d+\pL?)\[(?<building>\d+)\]/u', $title, $matches, PREG_SET_ORDER)) {
 			foreach ($matches as $match) {
 				if (DB::Query('SELECT * FROM Rooms WHERE Number = :number AND Building = :building', array(
 					':number' => $match['number'],
@@ -163,7 +163,7 @@ class SQLSaver {
 	}
 
 	function ExtractTeacher($title) {
-		if (preg_match_all('/(?<name>\S+\s+\S\.\S\.)/misu', $title, $matches, PREG_SET_ORDER)) {
+		if (preg_match_all('/(?<name>[А-я-]+\s+[А-Я]\.[А-Я]\.)/msu', $title, $matches, PREG_SET_ORDER)) {
 			foreach ($matches as $match) {
 				if (DB::Query('SELECT * FROM Teachers WHERE Title = :name', array(
 					':name' => $match['name'],
