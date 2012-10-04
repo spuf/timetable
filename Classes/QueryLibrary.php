@@ -46,10 +46,11 @@ class QueryLibrary {
 	}
 
 	static function AllDaysForTeacher() {
+		$separator = '<br>';
 		return "
 			SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.Title as FileName,
-				CONCAT_WS(', ', g.Title, (
-				SELECT GROUP_CONCAT(wg.Title SEPARATOR ', ') FROM Withs w
+				CONCAT_WS('$separator', g.Title, (
+				SELECT GROUP_CONCAT(wg.Title SEPARATOR '$separator') FROM Withs w
 				JOIN Groups wg ON wg.ID = w.GroupID
 				WHERE w.PairID = p.ID
 				)) as `With`
