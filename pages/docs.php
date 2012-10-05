@@ -17,7 +17,8 @@ if (count($docs) > 0) {
 		if (count($files) > 0) {
 			$content .= "<h4>$category</h4><ul>";
 			foreach ($files as $file) {
-				$content .= "<li><a href='http://www.hse.perm.ru{$file['link']}' rel='nofollow'>{$file['name']}</a> от {$file['date']}</li>";
+				$ext = pathinfo($file['link'], PATHINFO_EXTENSION);
+				$content .= "<li><a href='http://www.hse.perm.ru{$file['link']}'  download='{$file['name']} от {$file['date']}.{$ext}' rel='nofollow'>{$file['name']}</a> от {$file['date']}</li>";
 			}
 			$content .= "</ul>";
 		}
