@@ -5,16 +5,18 @@ $roomId = isset($_GET['room']) ? $_GET['room'] : -1;
 $rooms = DB::Query('SELECT ID, Building, Number FROM Rooms ORDER BY Building, Number');
 
 if ($roomId == -1) {
-	$content = '<ul class="unstyled">';
+	$content = '<div class="row-fluid"><div class="span3"><ul class="unstyled" style="margin-bottom: 0;">';
 	$building = -1;
 	foreach ($rooms as $item) {
 		if ($building != $item['Building']) {
+			if ($building != -1)
+				$content .= '</ul></div><div class="span3"><ul class="unstyled" style="margin-bottom: 0;">';
 			$building = $item['Building'];
 			$content .= "<li class='nav-header'>Корпус {$item['Building']}</li>";
 		}
 		$content .= "<li><a href='?page=room&room={$item['ID']}'>{$item['Number']}[{$item['Building']}]</a></li>";
 	}
-	$content .= '</ul>';
+	$content .= '</ul></div></div>';
 } else {
 	$options = '';
 	$building = -1;

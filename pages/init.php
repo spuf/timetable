@@ -29,8 +29,12 @@ $groupRow = DB::Query('SELECT Title FROM Groups WHERE `ID` = :id ORDER BY Title'
 $groupName = count($groupRow) > 0 ? $groupRow[0]['Title'] : 'Выбрать группу';
 
 $link = empty($_SERVER['QUERY_STRING']) ? '' : $_SERVER['QUERY_STRING'].'&';
-$groupSelector = '<ul class="unstyled clearfix" style="list-style: none;">';
-foreach ($groups as $item) {
-	$groupSelector .= "<li style='float: left;width: 25%;line-height: 25px;'><a href='?{$link}group={$item['ID']}'>{$item['Title']}</a></li>";
+$columnSize = ceil(count($groups) / 4);
+$groupSelector = '<div class="row-fluid"><div class="span3"><ul class="unstyled" style="margin-bottom: 0;">';
+for ($i = 0; $i < count($groups); $i++) {
+	if ($i > 0 && $i % $columnSize == 0)
+		$groupSelector .= '</ul></div><div class="span3"><ul class="unstyled" style="margin-bottom: 0;">';
+	$item = $groups[$i];
+	$groupSelector .= "<li><a href='?{$link}group={$item['ID']}'>{$item['Title']}</a></li>";
 }
-$groupSelector .= '</ul>';
+$groupSelector .= '</ul></div></div>';

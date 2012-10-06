@@ -5,11 +5,15 @@ $teacherId = isset($_GET['teacher']) ? $_GET['teacher'] : -1;
 $teachers = DB::Query('SELECT ID, Title FROM Teachers ORDER BY Title');
 
 if ($teacherId == -1) {
-	$content = '<ul class="unstyled">';
-	foreach ($teachers as $item) {
+	$columnSize = ceil(count($teachers) / 4);
+	$content = '<div class="row-fluid"><div class="span3"><ul class="unstyled" style="margin-bottom: 0;">';
+	for ($i = 0; $i < count($teachers); $i++) {
+		if ($i > 0 && $i % $columnSize == 0)
+			$content .= '</ul></div><div class="span3"><ul class="unstyled" style="margin-bottom: 0;">';
+		$item = $teachers[$i];
 		$content .= "<li><a href='?page=teacher&teacher={$item['ID']}'>{$item['Title']}</a></li>";
 	}
-	$content .= '</ul>';
+	$content .= '</ul></div></div>';
 } else {
 	$options = '';
 	foreach ($teachers as $item) {
