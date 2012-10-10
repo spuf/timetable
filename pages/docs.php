@@ -18,7 +18,16 @@ if (count($docs) > 0) {
 			$content .= "<h4>$category</h4><ul>";
 			foreach ($files as $file) {
 				$ext = pathinfo($file['link'], PATHINFO_EXTENSION);
-				$content .= "<li><a href='http://www.hse.perm.ru{$file['link']}'  download='{$file['name']} от {$file['date']}.{$ext}' rel='nofollow'>{$file['name']}</a> от {$file['date']}</li>";
+				$link = "http://www.hse.perm.ru{$file['link']}";
+				$google = "https://docs.google.com/viewer?url=".urlencode($link)."";
+				$preview = "<div class=\"preloader\"><img src=\"$google&a=bi&pagenumber=1\" alt=\"\"/></div>";
+				$content .= "
+					<li>
+					<a href='$link'  download='{$file['name']} от {$file['date']}.{$ext}' title='Скачать' rel='nofollow' target='_blank'>{$file['name']}</a>
+					<a href='$google' rel='preview' title='Открыть быстрый просмотр<br>в новом окне' data-content='$preview' target='_blank'><i class='icon-eye-open'></i></a>
+					от {$file['date']}
+					</li>
+				";
 			}
 			$content .= "</ul>";
 		}

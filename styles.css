@@ -56,6 +56,16 @@ section {
 	border-bottom: 1px dashed white;
 }
 
+.popover-title {
+	display: none !important;
+}
+
+.preloader {
+	background: white url('assets/img/ajax-loader.gif') no-repeat center;
+	min-height: 13px;
+	min-width: 18px;
+}
+
 /* Responsive
 -------------------------------------------------- */
 
