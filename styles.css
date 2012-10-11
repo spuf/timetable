@@ -66,6 +66,10 @@ section {
 	min-width: 18px;
 }
 
+ul.nav li.dropdown:hover ul.dropdown-menu{
+    display: block;    
+}
+
 /* Responsive
 -------------------------------------------------- */
 
