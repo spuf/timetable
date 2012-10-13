@@ -67,8 +67,7 @@ $content = <<<HTML
 			Показывает расписание на несколько следующих дней для выбранной группы.
 		</p>
 		<p>
-			Скоро в AppStore
-			<!-- s><a href="http://itunes.apple.com/us/app/raspisanie-vse/id566225461?l=ru&ls=1&mt=8" target="_blank">Посмотреть в AppStore</a></s -->
+			<a href="http://itunes.apple.com/us/app/raspisanie-vse/id566225461?l=ru&ls=1&mt=8" target="_blank">Посмотреть в App Store</a>
 		</p>
 	</div>
 	<div class="span4">
