@@ -20,16 +20,19 @@ $(document).ready(function () {
 function update() {
 	$('#info').text('');
 	var id = 0;
+	var days = 2;
 	try {
 		id = parseInt(System.Gadget.Settings.readString('group'));
+		days = parseInt(System.Gadget.Settings.readString('days'));
 	} catch(e) {}
     if (id > 0) {
         $.ajax({
             url: 'http://timetable.spuf.ru/api.php',
             data: {
-				api: 2,
+				api: 3,
 				query: 'latest',
-				group: id
+				group: id,
+				days: days
 			},
             dataType: 'jsonp',
             crossDomain: true,
@@ -49,19 +52,19 @@ function update() {
 				}
 				$('#link').attr('href', data.link);
                 $('#content').empty();
-                $.each(data.timetable, function(date, day){
-                    var title = $('<div/>', {text: day.dow + ' '}).addClass('day')
-                        .append($('<small/>', {text: date}));
+                $.each(data.timetable, function(i, day){
+					var title = $('<div/>', {text: day.dow + ' '}).addClass('day')
+                        .append($('<small/>', {text: day.date}));
                     var table = $('<table/>');
-                    $.each(day.pairs, function (number, pair) {
+                    $.each(day.pairs, function (i, pair) {
                         table.append($('<tr/>').addClass('pair')
                             .append(
-                                $('<td/>', {text: number}).addClass('number')
+                                $('<td/>', {text: pair.number}).addClass('number')
                                     .append($('<br/>'))
                                     .append($('<small/>', {text: pair.time}))
                             )
                             .append(
-                                $('<td/>', {html: pair.title.replace(/\n/g, '<br />')}).css('text-decoration', (pair.style ? pair.style['text-decoration'] : 'none'))
+                                $('<td/>', {html: pair.title.replace(/\n/g, '<br />')})
                             )
                         );
                     });
@@ -94,6 +97,6 @@ function update() {
             }
         });
     }else{
-        $('#info').text('Настрой меня!');
+        $('#info').text('Настроек нет');
 	}
 }

@@ -2,6 +2,12 @@
 
 include_once 'bootstrap.php';
 
+//var_dump($_SERVER['HTTP_HOST']);
+
+$maxage = 60 * 1;
+header("Cache-Control: max-age=$maxage, public");
+header("Expires: " . gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time() + $maxage));
+
 $page = isset($_GET['page']) ? $_GET['page'] : 'timetable';
 
 include_once 'pages/init.php';

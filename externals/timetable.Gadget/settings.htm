@@ -17,13 +17,15 @@
                 if (event.closeAction == event.Action.commit) {
                     var id = parseInt($('#group').val());
                     System.Gadget.Settings.writeString('group', id);
+                    var days = parseInt($('#day').val());
+                    System.Gadget.Settings.writeString('days', days);
                     event.cancel = false;
                 }
             };
             $.ajax({
                 url: 'http://timetable.spuf.ru/api.php',
                 data: {
-                    api: 2,
+                    api: 3,
                     query: 'groups'
                 },
                 dataType: 'jsonp',
@@ -38,6 +40,13 @@
                     });
                     s.val(System.Gadget.Settings.readString('group'));
                     $('#groups').empty().text('Группа: ').append(s);
+
+                    s = $('<select/>', {id: 'day'}).append($('<option/>', {value: 2, html: '&ndash; Выберите &ndash;'}));
+                    for (var i = 1; i <= 7; i++) {
+                        s.append($('<option/>', {value: i, text: i+' '+(i==1?'день':(i<5?'дня':'дней'))}));
+                    }
+                    s.val(System.Gadget.Settings.readString('days'));
+                    $('#days').empty().text('Показывать: ').append(s).append('<br>(не все дни могут влезть)');
                 }
             });
         });
@@ -46,5 +55,6 @@
 </head>
 <body>
 <div id="groups">Загрузка списка групп...</div>
+<div id="days"></div>
 </body>
 </html>

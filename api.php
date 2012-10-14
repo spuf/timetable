@@ -151,6 +151,10 @@ function api_3($data) {
 		case 'latest':
 			$groupId = isset($_GET['group']) ? intval($_GET['group']) : -1;
 			$daysCount = isset($_GET['days']) ? intval($_GET['days']) : 2;
+			if ($daysCount < 0)
+				$daysCount = 0;
+			if ($daysCount > 7)
+				$daysCount = 7;
 			$groups = DB::Query('SELECT Title FROM Groups WHERE `ID` = :id ORDER BY Title', array(':id' => $groupId));
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
 			$data['link'] = 'http://timetable.spuf.ru/?page=timetable&file=now&group='.$groupId;

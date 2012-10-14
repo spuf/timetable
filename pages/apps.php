@@ -29,6 +29,7 @@ $content = <<<HTML
 				<li>правый клик на рабочем столе</li>
 				<li>из меню открывайте <strong>Гаджеты</strong>.</li>
 			</ol>
+			Для обновления: вначале закройте гаджет.
 		</p>
 		<p>
 			Скачать: <a href="externals/timetable_gadget.zip">timetable_gadget.zip</a>
