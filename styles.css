@@ -1,9 +1,11 @@
 * {
 	outline: none !important;
 }
+
 *:focus {
 	outline: none !important;
 }
+
 *:active {
 	outline: none !important;
 }
