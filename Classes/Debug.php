@@ -16,11 +16,17 @@ class Debug {
 	static function Log($msg, $var = null) {
 		print "<p>$msg<br><pre>".print_r($var, true)."</pre><p>";
 		$temp = 0;
-		DB::Query('INSERT INTO Log (`Time`, Message, Variable) VALUES (:time, :message, :variable)', array(
-			':time' => date(DB::DATETIME),
+		$count = DB::Query('SELECT ID FROM Log WHERE Message = :message AND Variable = :variable', array(
 			':message' => $msg,
 			':variable' => serialize($var),
-		), false, $temp, false);
+		));
+		if (empty($count)) {
+			DB::Query('INSERT INTO Log (`Time`, Message, Variable) VALUES (:time, :message, :variable)', array(
+				':time' => date(DB::DATETIME),
+				':message' => $msg,
+				':variable' => serialize($var),
+			), false, $temp, false);
+		}
 	}
 
 }
