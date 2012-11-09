@@ -145,6 +145,13 @@ class SQLSaver {
 	}
 
 	function ExtractRoom($title) {
+		$replace = array(
+			'А' => 'A',
+			'В' => 'B',
+			'С' => 'C',
+			'Д' => 'D',
+		);
+		$title = str_replace(array_keys($replace), array_values($replace), $title);
 		if (preg_match_all('/\((?<number>\d+\pL?)\[(?<building>\d+)\]/u', $title, $matches, PREG_SET_ORDER)) {
 			foreach ($matches as $match) {
 				if (DB::Query('SELECT * FROM Rooms WHERE Number = :number AND Building = :building', array(

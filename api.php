@@ -2,7 +2,7 @@
 
 include_once 'bootstrap.php';
 
-$maxage = 60 * 15;
+$maxage = 60 * 1;
 header("Cache-Control: max-age=$maxage, public");
 header("Expires: " . gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time() + $maxage));
 
