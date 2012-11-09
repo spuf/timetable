@@ -154,7 +154,7 @@ class Parser
 					
 					$info = array(
 						'time' => $pair['time'],
-						'title' => preg_replace("/\s+\n+/", "\n", str_replace("\r", "", trim($text))),
+						'title' => preg_replace("/\s+\n+/", "\n", str_replace("\r", "", preg_replace("/\s+/", " ", trim($text)))),
 					);
 					
 					if (!empty($info['title'])) {
