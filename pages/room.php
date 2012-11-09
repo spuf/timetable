@@ -43,8 +43,16 @@ HTML;
 	$roomRow = DB::Query('SELECT Building, Number FROM Rooms WHERE `ID` = :id ORDER BY Building, Number', array(':id' => $roomId));
 	$roomName = count($roomRow) > 0 ? "{$roomRow[0]['Number']}[{$roomRow[0]['Building']}]" : '---';
 
-	$timetable = DB::Query(QueryLibrary::AllDaysForTeacher(), array(
-			':teacher' => "%{$roomName}%",
+	$replace = array(
+		'А' => 'A',
+		'В' => 'B',
+		'С' => 'C',
+		'Д' => 'D',
+	);
+	$roomNameRus = str_replace(array_values($replace), array_keys($replace), $roomName);
+	$timetable = DB::Query(QueryLibrary::AllDaysForRoom(), array(
+			':room' => "%{$roomName}%",
+			':roomrus' => "%{$roomNameRus}%",
 		)
 	);
 
