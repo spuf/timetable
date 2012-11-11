@@ -20,7 +20,7 @@ if (count($docs) > 0) {
 				$ext = pathinfo($file['link'], PATHINFO_EXTENSION);
 				$link = "http://www.hse.perm.ru{$file['link']}";
 				$google = "https://docs.google.com/viewer?url=".urlencode($link)."";
-				$preview = "<div class=\"preloader\"><img src=\"$google&a=bi&pagenumber=1\" alt=\"\"/></div>";
+				$preview = "<div class=\"preloader\"><img src=\"{$google}&a=bi&pagenumber=1\" alt=\"\"/></div>";
 				$content .= "
 					<li>
 					<a href='$link'  download='{$file['name']} от {$file['date']}.{$ext}' title='Скачать' rel='nofollow' target='_blank'>{$file['name']}</a>

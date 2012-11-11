@@ -6,7 +6,7 @@ $files = Cache::Query(QueryLibrary::LatestFiles());
 $items = '';
 foreach ($files as $file) {
 	$active = $file['ID'] == $fileId ? 'class="active"' : '';
-	$items .= "<li $active><a href='?page=timetable&file={$file['ID']}'>{$file['Title']}</a></li>";
+	$items .= "<li $active><a href='?page=timetable&file={$file['ID']}'>{$file['Title']}</a></li>\n";
 }
 $active_now = $fileId == 'now' ? 'class="active"' : '';
 $active_all = $fileId == 'all' ? 'class="active"' : '';
@@ -22,16 +22,16 @@ $sidebar = <<<HTML
 HTML;
 
 if ($groupId == -1) {
-	$content = '<ul class="unstyled">';
+	$content = "<ul class='unstyled'>\n";
 	foreach ($groups as $item) {
-		$content .= "<li><a href='?page=timetable&file={$fileId}&group={$item['ID']}'>{$item['Title']}</a></li>";
+		$content .= "<li><a href='?page=timetable&file={$fileId}&group={$item['ID']}'>{$item['Title']}</a></li>\n";
 	}
-	$content .= '</ul>';
+	$content .= "</ul>\n";
 } else {
 	$options = '';
 	foreach ($groups as $item) {
 		$selected = $groupId == $item['ID'] ? 'selected="selected"' : '';
-		$options .= "<option value='{$item['ID']}' $selected>{$item['Title']}</option>";
+		$options .= "<option value='{$item['ID']}' $selected>{$item['Title']}</option>\n";
 	}
 	$content = <<<HTML
 <form action="?" method="get" class="form-inline">
@@ -68,15 +68,15 @@ HTML;
 			if ($date != $pair['Date']) {
 				$date = $pair['Date'];
 				if (!is_null($date))
-					$content .= "</table>";
-				$content .= "<h4>{$pair['Dow']} ({$pair['Date']})</h4>";
-				$content .= "<table class='table table-nonfluid table-bordered table-condensed'>";
+					$content .= "</table>\n";
+				$content .= "<h4>{$pair['Dow']} ({$pair['Date']})</h4>\n";
+				$content .= "<table class='table table-nonfluid table-bordered table-condensed'>\n";
 			}
-			$content .= "<tr><td class='center' width='80'>{$pair['Number']}<br><small class='muted'>{$pair['Time']}</small></td><td width='300'><div style='{$pair['Style']}'>{$title}</div><small class='muted'>{$pair['With']}</small></td></tr>";
+			$content .= "<tr><td class='center' width='80'>{$pair['Number']}<br><small class='muted'>{$pair['Time']}</small></td><td width='300'><div style='{$pair['Style']}'>{$title}</div><small class='muted'>{$pair['With']}</small></td></tr>\n";
 		}
-		$content .= "</table>";
+		$content .= "</table>\n";
 
 	} else {
-		$content .= "<p>Ничего</p>";
+		$content .= "<p>Ничего</p>\n";
 	}
 }

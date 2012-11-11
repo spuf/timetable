@@ -9,6 +9,7 @@ spl_autoload_register(function ($class) {
 		return false;
 	}
 	include "Classes/{$class}.php";
+	return true;
 });
 
 $host = isset($_SERVER["DB1_HOST"]) ? 'host='.$_SERVER["DB1_HOST"] : 'unix_socket=/Applications/MAMP/tmp/mysql/mysql.sock';

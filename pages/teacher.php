@@ -6,19 +6,19 @@ $teachers = DB::Query('SELECT ID, Title FROM Teachers ORDER BY Title');
 
 if ($teacherId == -1) {
 	$columnSize = ceil(count($teachers) / 4);
-	$content = '<div class="row-fluid"><div class="span3"><ul class="unstyled" style="margin-bottom: 0;">';
+	$content = "<div class='row-fluid'><div class='span3'><ul class='unstyled' style='margin-bottom: 0;'>\n";
 	for ($i = 0; $i < count($teachers); $i++) {
 		if ($i > 0 && $i % $columnSize == 0)
-			$content .= '</ul></div><div class="span3"><ul class="unstyled" style="margin-bottom: 0;">';
+			$content .= "</ul></div><div class='span3'><ul class='unstyled' style='margin-bottom: 0;'>\n";
 		$item = $teachers[$i];
-		$content .= "<li><a href='?page=teacher&teacher={$item['ID']}'>{$item['Title']}</a></li>";
+		$content .= "<li><a href='?page=teacher&teacher={$item['ID']}'>{$item['Title']}</a></li>\n";
 	}
-	$content .= '</ul></div></div>';
+	$content .= "</ul></div></div>\n";
 } else {
 	$options = '';
 	foreach ($teachers as $item) {
 		$selected = $teacherId == $item['ID'] ? 'selected="selected"' : '';
-		$options .= "<option value='{$item['ID']}' $selected>{$item['Title']}</option>";
+		$options .= "<option value='{$item['ID']}' $selected>{$item['Title']}</option>\n";
 	}
 	$content = <<<HTML
 <form action="?" method="get" class="form-inline">
@@ -43,15 +43,15 @@ HTML;
 			if ($date != $pair['Date']) {
 				$date = $pair['Date'];
 				if (!is_null($date))
-					$content .= "</table>";
-				$content .= "<h4>{$pair['Dow']} ({$pair['Date']})</h4>";
-				$content .= "<table class='table table-nonfluid table-bordered table-condensed'>";
+					$content .= "</table>\n";
+				$content .= "<h4>{$pair['Dow']} ({$pair['Date']})</h4>\n";
+				$content .= "<table class='table table-nonfluid table-bordered table-condensed'>\n";
 			}
-			$content .= "<tr><td class='center' width='80'>{$pair['Number']}<br><small class='muted'>{$pair['Time']}</small></td><td class='center' width='80'>{$pair['With']}</td><td width='300'><div style='{$pair['Style']}'>{$title}</div></td></tr>";
+			$content .= "<tr><td class='center' width='80'>{$pair['Number']}<br><small class='muted'>{$pair['Time']}</small></td><td class='center' width='80'>{$pair['With']}</td><td width='300'><div style='{$pair['Style']}'>{$title}</div></td></tr>\n";
 		}
-		$content .= "</table>";
+		$content .= "</table>\n";
 
 	} else {
-		$content .= "<p>Ничего</p>";
+		$content .= "<p>Ничего</p>\n";
 	}
 }
