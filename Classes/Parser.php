@@ -242,7 +242,7 @@ class Parser
 		if (preg_match('/^\s*(?<number>\d)\s+(?<time>\d{1,2}[:\.]{1}\d{2}[- ]+\d{1,2}[:\.]{1}\d{2})?\s*$/us', $text, $matches)) {
 			$pair = array(
 				'number' => intval($matches['number']),
-				'time' => $matches['time'],
+				'time' => !empty($matches['time']) ? $matches['time'] : '?',
 			);
 			return $pair;
 		}
