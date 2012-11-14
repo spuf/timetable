@@ -117,12 +117,15 @@ class SQLSaver {
 		return $this->AddTime($data, $number);
 	}
 	function AddTime($time, $number) {
-		if (!empty($time)) {
-			DB::Query('INSERT INTO Times (Time, Number) VALUES (:time, :number)', array(':time' => $time, ':number' => $number), false);
-			$this->LoadTimes();
-			return $this->GetTime($time);
+		if (empty($time)) {
+			$time = '?';
 		}
-		return null;
+		if (empty($number)) {
+			$number = '?';
+		}
+		DB::Query('INSERT INTO Times (Time, Number) VALUES (:time, :number)', array(':time' => $time, ':number' => $number), false);
+		$this->LoadTimes();
+		return $this->GetTime($time);
 	}
 
 	function LoadStyles() {
