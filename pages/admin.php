@@ -2,7 +2,7 @@
 
 $content = '';
 
-$rows = DB::Query("SELECT * FROM Log WHERE Message LIKE 'no %' ORDER BY Time");
+$rows = DB::Query("SELECT * FROM Log ORDER BY Time");
 
 if (empty($rows)) {
 	$content .= "<p>Пусто</p>\n";
