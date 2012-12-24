@@ -3,7 +3,12 @@
 if (empty($sidebar))
 	$sidebar = '';
 if (empty($content))
-$content = 'Не найдено.';
+	$content = 'Не найдено.';
+if (empty($sidebarSize))
+	$sidebarSize = 0;
+
+$sidebarSize = intval($sidebarSize);
+$contentSize = 12 - $sidebarSize;
 
 print <<<HTML
 <!DOCTYPE html>
@@ -25,39 +30,22 @@ print <<<HTML
 
 <body data-spy="scroll" data-target=".subnav">
 
-<div class="navbar navbar-inverse navbar-fixed-top">
+<div class="navbar navbar-inverse navbar-static-top navbar-full">
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a class="brand" href="?">Расписание ВШЭ (ПФ)</a>
-			<p class="navbar-text pull-right">
-            	<a href="#groupSelector" class="navbar-link group-link" data-toggle="modal">{$groupName}</a>
-            </p>
             {$navigation}
 		</div>
 	</div>
 </div>
 
-<div class="modal hide fade" id="groupSelector" tabindex="-1" role="dialog">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">×</button>
-		<h3>Выбор группы</h3>
-	</div>
-	<div class="modal-body">
-		{$groupSelector}
-	</div>
-	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Закрыть</button>
-		<!--<button class="btn btn-primary">Save changes</button>-->
-	</div>
-</div>
-
 <div class="container">
 	<div class="row">
-		<div class="span3">
+		<div class="span{$sidebarSize}">
 			{$sidebar}
 		</div>
 
-		<div class="span9">
+		<div class="span{$contentSize}">
 			{$content}
 		</div>
 	</div>
@@ -74,15 +62,6 @@ print <<<HTML
 <script src="assets/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
-		var \$window = $(window);
-		$('.subnav').affix({
-			offset: {
-				top: function() {
-					return \$window.width() <= 980 ? 60 : 0;
-				},
-				bottom: 150
-			}
-		});
 		$('a[title]').tooltip();
 		$('a[rel=preview]').popover({
 			placement: 'bottom',

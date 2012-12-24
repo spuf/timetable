@@ -10,6 +10,7 @@ foreach ($files as $file) {
 }
 $active_now = $fileId == 'now' ? 'class="active"' : '';
 $active_all = $fileId == 'all' ? 'class="active"' : '';
+$sidebarSize = 4;
 $sidebar = <<<HTML
 <div class="well sidebar-nav subnav">
 	<ul class="nav nav-list">

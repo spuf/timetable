@@ -10,11 +10,6 @@
 	outline: none !important;
 }
 
-body {
-	padding-top: 60px;
-	padding-bottom: 40px;
-}
-
 .sidebar-nav {
 	padding: 9px 0;
 }
@@ -31,33 +26,6 @@ body {
 	vertical-align: middle;
 }
 
-section {
-	padding-top: 30px;
-}
-
-.subnav {
-	width: 228px;
-}
-
-.subnav.affix {
-	top: 60px;
-}
-
-.subnav.affix-bottom {
-	position: fixed;
-	top: auto;
-	bottom: 110px;
-}
-
-.group-link {
-	text-decoration: none;
-	border-bottom: 1px dashed #999;
-}
-.group-link:hover {
-	text-decoration: none;
-	border-bottom: 1px dashed white;
-}
-
 .popover-title {
 	display: none !important;
 }
@@ -66,4 +34,8 @@ section {
 	background: white url('assets/img/ajax-loader.gif') no-repeat center;
 	min-height: 13px;
 	min-width: 18px;
+}
+
+.navbar-full {
+	margin-bottom: 20px;
 }

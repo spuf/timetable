@@ -2,6 +2,7 @@
 
 $lastCheck = Storage::Get('LastCheck', 0);
 $lastCheck = $lastCheck > 0 ? date('H:i d.m.Y', $lastCheck) : 'Never';
+$sidebarSize = 3;
 $sidebar = <<<HTML
 <div class="well sidebar-nav subnav">
 	<ul class="nav nav-list">

@@ -1,5 +1,6 @@
 <?php
 
+$sidebarSize = 3;
 $sidebar = <<<HTML
 <div id="sidebar" class="well sidebar-nav subnav">
 	<ul class="nav nav-list">
