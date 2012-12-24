@@ -16,7 +16,7 @@ print <<<HTML
 <head>
 	<meta charset="utf-8">
 	<title>Расписание ВШЭ Пермь</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="viewport" content="width=980px">
 	<meta name="description" content="Расписание занятий Высшей школы экономики в Перми">
 	<meta name="apple-itunes-app" content="app-id=566225461"/>
 	
