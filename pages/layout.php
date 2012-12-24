@@ -62,6 +62,7 @@ print <<<HTML
 <script src="assets/js/bootstrap.min.js"></script>
 <script>
 	$(function() {
+		$('body').on('touchstart.dropdown', '.dropdown-menu', function (e) { e.stopPropagation(); });
 		$('a[title]').tooltip();
 		$('a[rel=preview]').popover({
 			placement: 'bottom',
