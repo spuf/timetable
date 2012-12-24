@@ -28,7 +28,7 @@ print <<<HTML
 	<![endif]-->
 </head>
 
-<body data-spy="scroll" data-target=".subnav">
+<body>
 
 <div class="navbar navbar-inverse navbar-static-top navbar-full">
 	<div class="navbar-inner">
