@@ -24,7 +24,7 @@ if (count($docs) > 0) {
 				$content .= "
 					<li>
 					<a href='$link' download='{$file['name']} от {$file['date']}.{$ext}' title='Скачать' rel='nofollow' target='_blank'>{$file['name']}</a>
-					<a href='$google' title='Открыть быстрый просмотр<br>в новом окне' target='_blank'><i class='icon-eye-open'></i></a>
+					<a href='$google' title='Открыть быстрый просмотр в новом окне' target='_blank'><i class='icon-eye-open'></i></a>
 					от {$file['date']}
 					</li>
 				";
