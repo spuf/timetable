@@ -19,7 +19,7 @@ if (count($docs) > 0) {
 			$content .= "<h4>$category</h4><ul>";
 			foreach ($files as $file) {
 				$ext = pathinfo($file['link'], PATHINFO_EXTENSION);
-				$link = "http://www.hse.perm.ru{$file['link']}";
+				$link = $file['link'];
 				$google = "https://docs.google.com/viewer?url=".urlencode($link)."";
 				$date = date('d.m.Y H:i', strtotime($file['date']));
 				$content .= "
