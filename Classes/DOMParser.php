@@ -42,9 +42,17 @@ class DOMParser {
 					}
 				}
 			}
-			$value = trim($value);
+			$value = $this->CleanXMLValue($value);
 		}
 		return $value;
+	}
+
+	function CleanXMLValue( $s ){
+		$s = mb_convert_encoding($s, 'UTF-8', 'UTF-8'); // remove bugged symbols
+		$s = preg_replace("/\p{Mc}/u", ' ', $s); // normalize spaces
+		$s = trim(preg_replace("/\s+/u", " ", preg_replace("/\r|\n|\t/u", ' ', $s)));
+		$s = html_entity_decode($s, ENT_COMPAT, 'UTF-8');
+		return $s;
 	}
 
 }

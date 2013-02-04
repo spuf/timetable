@@ -20,18 +20,18 @@ class PageParser {
 		if (strpos($this->html, 'Расписание занятий') !== false) {
 			$parser = new DOMParser($this->html);
 
-			$nodes = $parser->Nodes('//div[@id="content"]/div/*');
+			$nodes = $parser->Nodes('//div[@class="timetable"]/*');
 			$category = '';
 			foreach ($nodes as $node) {
-				if ($parser->Name($node) == 'p') {
+				if ($parser->Name($node) == 'p' || $parser->Name($node) == 'strong') {
 					$category = $parser->Value('', $node);
 					$this->array[$category] = array();
 				} elseif ($parser->Name($node) == 'ul') {
 					foreach ($parser->Nodes('li', $node) as $item) {
 						$this->array[$category][] = array(
-							'name' => $parser->Value('a', $item),
-							'date' => $parser->Value('small', $item, '/Дата изменения:\s+(.+)\./imsu'),
-							'link' => $parser->Value('a/@href', $item),
+							'name' => $parser->Value('.//a', $item),
+							'date' => $parser->Value('.//a/@href', $item, '@(\d{4}/\d{2}/\d{2})/\d+/@') . ' ' . date('H:i:s', $parser->Value('.//a/@href', $item, '@\d{4}/\d{2}/\d{2}/(\d+)/@')),
+							'link' => $parser->Value('.//a/@href', $item),
 						);
 					}
 				}

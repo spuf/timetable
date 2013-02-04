@@ -16,7 +16,7 @@ class Checker {
 		if (Storage::Get('LastCheck', 0) + 60*15 < time() || $force) {
 			Storage::Set('LastCheck', time());
 
-			if ($this->page->Load('http://www.hse.perm.ru/student/timetable/')) {
+			if ($this->page->Load('http://perm.hse.ru/student/timetable')) {
 				$data = $this->page->Parse();
 
 				$cache = Storage::Get('Cache', array());
@@ -32,7 +32,7 @@ class Checker {
 						DB::Query('INSERT INTO Files (Title, Date, Link, Parsed) VALUES (:title, :date, :link, 0)', array(
 							':title' => $item['name'],
 							':date' => date(DB::DATETIME, strtotime($item['date'])),
-							':link' => 'http://www.hse.perm.ru'.$item['link'],
+							':link' => $item['link'],
 						), false);
 					}
 				}

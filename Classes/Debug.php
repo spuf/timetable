@@ -15,6 +15,7 @@ class Debug {
 
 	static function Log($msg, $var = null) {
 		print "<p>$msg<br><pre>".print_r($var, true)."</pre><p>";
+		//return;
 		$temp = 0;
 		$count = DB::Query('SELECT ID FROM Log WHERE Message = :message AND Variable = :variable', array(
 			':message' => $msg,
