@@ -193,6 +193,18 @@ function api_3($data) {
 
 				$date = null;
 				$day = -1;
+				$timetable[$day] = array(
+					'date' => '!',
+					'dow' => 'Объявление',
+					'pairs' => array(),
+				);
+				$timetable[$day]['pairs'][] = array(
+					'number' => '',
+					'time' => '',
+					'title' => 'Это расписание может быть неточным,\nЗа ним больше никто не следит.',
+					'style' => '',
+					'with' => '',
+				);
 				for($i = 0; $i < count($sql); $i++) {
 					$pair = $sql[$i];
 					if ($date != $pair['Date']) {
