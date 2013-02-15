@@ -199,7 +199,7 @@ function api_3($data) {
 					'pairs' => array(),
 				);
 				$timetable[$day]['pairs'][] = array(
-					'number' => ' ',
+					'number' => 0,
 					'time' => ' ',
 					'title' => 'Это расписание может быть неточным,\nЗа ним больше никто не следит.',
 					'style' => '',
