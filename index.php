@@ -4,7 +4,7 @@ include_once 'bootstrap.php';
 
 //var_dump($_SERVER['HTTP_HOST']);
 
-$maxage = 60 * 1;
+$maxage = 5;
 header("Cache-Control: max-age=$maxage, public");
 header("Expires: " . gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time() + $maxage));
 

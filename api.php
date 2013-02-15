@@ -2,7 +2,7 @@
 
 include_once 'bootstrap.php';
 
-$maxage = 60 * 1;
+$maxage = 5;
 header("Cache-Control: max-age=$maxage, public");
 header("Expires: " . gmstrftime("%a, %d %b %Y %H:%M:%S GMT", time() + $maxage));
 
@@ -192,7 +192,7 @@ function api_3($data) {
 				));
 
 				$date = null;
-				$day = -1;
+				$day = 0;
 				$timetable[$day] = array(
 					'date' => '!',
 					'dow' => 'Объявление',
