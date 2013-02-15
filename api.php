@@ -205,6 +205,7 @@ function api_3($data) {
 					'style' => '',
 					'with' => '',
 				);
+				$day += 1;
 				for($i = 0; $i < count($sql); $i++) {
 					$pair = $sql[$i];
 					if ($date != $pair['Date']) {
