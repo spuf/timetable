@@ -20,12 +20,13 @@ class PageParser {
 		if (strpos($this->html, 'Расписание занятий') !== false) {
 			$parser = new DOMParser($this->html);
 
-			$nodes = $parser->Nodes('//div[@class="timetable"]/*');
+			$nodes = $parser->Nodes('//div[@id="mainarea"]//div[@class="box"]//*[name()="p" or name()="strong" or name()="ul"]');
 			$category = '';
 			foreach ($nodes as $node) {
 				if ($parser->Name($node) == 'p' || $parser->Name($node) == 'strong') {
 					$category = $parser->Value('', $node);
-					$this->array[$category] = array();
+					if (!empty($category))
+						$this->array[$category] = array();
 				} elseif ($parser->Name($node) == 'ul') {
 					foreach ($parser->Nodes('li', $node) as $item) {
 						$this->array[$category][] = array(
@@ -35,6 +36,11 @@ class PageParser {
 						);
 					}
 				}
+			}
+		}
+		foreach ($this->array as $key => $value) {
+			if (empty($value)) {
+				unset($this->array[$key]);
 			}
 		}
 		//Debug::Log('Parsed page', $this->array);
