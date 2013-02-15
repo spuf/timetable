@@ -191,6 +191,17 @@ function api_3($data) {
 					':now' => date('Y-m-d', strtotime('+4 hours')),
 				));
 
+				array_unshift($sql, array(
+					'FileID' => 0,
+					'Date' => '!',
+					'Dow' => 'Внимание',
+					'Number' => 0,
+					'Time' => ' ',
+					'Title' => "Это расписание может быть неточным, за ним больше никто не следит.",
+					'Style' => '',
+					'With' => '',
+				));
+
 				$date = null;
 				$day = -1;
 				
