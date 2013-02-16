@@ -6,6 +6,14 @@ $checker = new Checker();
 
 function Check($force = false) {
 	global $checker;
+	if (Storage::Get('LastDrop', 0) + 60*60*(24+2) < time() || $force) {
+		Storage::Set('LastDrop', time());
+		// clean up
+		DB::Query('DELETE FROM Files', array(), false);
+		DB::Query('DELETE FROM Dates', array(), false);
+		DB::Query('DELETE FROM Variables', array(), false);
+		Storage::Set('LastDrop', time());
+	}
 	$checker->CheckPage($force);
 	$checker->CheckFiles($force);
 }
