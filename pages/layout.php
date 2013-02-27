@@ -46,9 +46,6 @@ print <<<HTML
 		</div>
 
 		<div class="span{$contentSize}">
-			<div class="alert alert-error">
-			  <strong>Внимание!</strong> Это расписание может быть неточным, за ним больше никто не следит.
-			</div>
 			{$content}
 		</div>
 	</div>
