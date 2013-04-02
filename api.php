@@ -62,7 +62,7 @@ function api_2($data) {
 			$data['group'] = count($groups) > 0 ? $groups[0]['Title'] : null;
 			$timetable = array();
 			$link = 'http://timetable.spuf.ru/?page=timetable&file=now&group='.$groupId;
-			
+
 			if ($data['group']) {
 				$sql = DB::Query("
 					SELECT t.Number, t.Time, p.Title, s.Style, DATE_FORMAT(d.Date, '%d.%m.%Y') as Date, d.Dow, f.ID as FileCode, f.Title as FileName, DATE_FORMAT(f.Date, '%H:%i %d.%m.%Y') as FileDate,
@@ -116,7 +116,7 @@ function api_2($data) {
 						'title' => $pair['Title'],
 						'style' => $style,
 					);
-					
+
 					if (!empty($pair['With'])) {
 						$with = explode(',', $pair['With']);
 						if (count($with) > 0) {
@@ -191,20 +191,20 @@ function api_3($data) {
 					':now' => date('Y-m-d', strtotime('+4 hours')),
 				));
 
-				/*array_unshift($sql, array(
+				array_unshift($sql, array(
 					'FileID' => 0,
 					'Date' => '!',
-					'Dow' => 'Внимание',
+					'Dow' => 'Всё сломалось',
 					'Number' => 0,
 					'Time' => ' ',
-					'Title' => "Это расписание может быть неточным, за ним больше никто не следит.",
+					'Title' => "Я бы починил эту штуку, ради красивой и милой девушки, но я бородат.",
 					'Style' => '',
 					'With' => '',
-				));*/
+				));
 
 				$date = null;
 				$day = -1;
-				
+
 				for($i = 0; $i < count($sql); $i++) {
 					$pair = $sql[$i];
 					if ($date != $pair['Date']) {

@@ -19,7 +19,7 @@ print <<<HTML
 	<meta name="viewport" content="width=980px">
 	<meta name="description" content="Расписание занятий Высшей школы экономики в Перми">
 	<meta name="apple-itunes-app" content="app-id=566225461"/>
-	
+
 	<link href="assets/css/bootstrap.css" rel="stylesheet">
 	<link href="styles.css" rel="stylesheet">
 
@@ -46,6 +46,9 @@ print <<<HTML
 		</div>
 
 		<div class="span{$contentSize}">
+			<div class="alert alert-error">
+			  <strong>Всё сломалось!</strong> Я бы починил эту штуку, ради красивой и милой девушки, но я бородат.
+			</div>
 			{$content}
 		</div>
 	</div>
